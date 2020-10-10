@@ -1,8 +1,8 @@
 FROM 	bryandollery/maven-repo as build
 
 ARG 	rebuild
-WORKDIR /usr/src/app
-RUN 	mvn clean package -DskipTests
+RUN 	cd /usr/src/app && \
+	mvn clean package 
 
 
 FROM weaveworksdemos/msd-java:jre-latest
