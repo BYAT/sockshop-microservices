@@ -24,7 +24,7 @@ init: logs repos namespaces
 platform: install-ingress install-logging install-monitoring install-secrets
 delete-platform: delete-ingress delete-logging delete-monitoring delete-secrets
 build: 
-    echo "lets start"
+	echo "lets start"
 logs:
 	touch output.log
 	rm -f output.log
@@ -96,6 +96,12 @@ delete-dashboard:
 
 
 install-secrets:
+	sudo apt install unzip
+	curl -Ls https://releases.hashicorp.com/vault/1.5.3/vault_1.5.3_linux_amd64.zip -o vault.zip
+	unzip vault.zip
+	rm vault.zip
+	chmod a+x vault
+	sudo mv vault /usr/local/bin
 	echo "Secrets: install" | tee -a output.log
 	helm install vault hashicorp/vault -n secrets -f platform/secrets/values.yaml | tee -a output.log
 
