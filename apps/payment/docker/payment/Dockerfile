@@ -5,8 +5,8 @@ COPY . /go/src/github.com/microservices-demo/payment/
 
 RUN go get -u github.com/FiloSottile/gvt
 RUN cd /go/src/github.com/microservices-demo/payment/ && gvt restore
-
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/main github.com/microservices-demo/apps/payment/cmd/paymentsvc 
+RUN pwd
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/main /cmd/paymentsvc 
 
 CMD ["/app/main", "-port=80"]
 
