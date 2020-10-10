@@ -1,10 +1,8 @@
 FROM 	bryandollery/maven-repo as build
 
 ARG 	rebuild
-
-RUN 	git clone https://github.com/BYAT/sockshop-microservices.git && \
-    cd /root/sockshop-microservices/apps/orders && \
-    mvn clean package -DskipTests
+WORKDIR /usr/src/app
+RUN 	mvn clean package -DskipTests
 
 
 FROM weaveworksdemos/msd-java:jre-latest
