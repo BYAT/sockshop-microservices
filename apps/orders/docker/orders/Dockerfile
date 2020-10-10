@@ -1,3 +1,9 @@
+from bryandollery/maven-repo as build
+
+arg rebuild
+
+run mvn clean package -DskipTests
+
 FROM weaveworksdemos/msd-java:jre-latest
 
 WORKDIR /usr/src/app
