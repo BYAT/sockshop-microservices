@@ -1,8 +1,9 @@
 FROM 	bryandollery/maven-repo as build
 
 ARG 	rebuild
-RUN 	cd /usr/src/app && \
-	mvn clean package 
+RUN     pwd
+RUN     ls -gAhF
+RUN 	mvn clean package 
 
 
 FROM weaveworksdemos/msd-java:jre-latest
