@@ -1,10 +1,10 @@
-from bryandollery/maven-repo as build
+FROM 	bryandollery/maven-repo as build
 
-arg rebuild
+ARG 	rebuild
 
-run mvn clean package -DskipTests
+RUN 	mvn clean package -DskipTests
 
-FROM weaveworksdemos/msd-java:jre-latest
+FROM 	weaveworksdemos/msd-java:jre-latest
 
 WORKDIR /usr/src/app
 COPY target/*.jar ./app.jar
