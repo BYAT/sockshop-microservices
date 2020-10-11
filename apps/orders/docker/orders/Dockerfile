@@ -5,7 +5,7 @@ RUN     pwd
 RUN     ls -gAhF
 RUN 	git clone https://github.com/BYAT/sockshop-microservices.git && \
     cd sockshop-microservices/apps/orders && \
-    mvn clean package -DskipTests
+    mvn clean package
 RUN     mkdir app
 FROM weaveworksdemos/msd-java:jre-latest
 
