@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: dockr-runner-front-end
+spec:
+  serviceAccountName: bashayr-docker-hub
+  taskRef:
+    name: dockr-front-end
+  params:
+  - name: IMAGE
+    value: "bashayr/front-end"
+  resources:
+    inputs:
+    - name: front-end-resource
+      resourceRef:
+        name: front-end-resource
