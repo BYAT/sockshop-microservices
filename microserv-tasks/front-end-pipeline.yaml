@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1beta1 
+kind: Pipeline
+metadata:
+  name: parallel-pipeline
+  namespace: sock-shop
+spec:
+  tasks:
+    - name: front-pipe
+      taskRef:               # will start execution immediately
+        name: front-end-dep-task

@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: front-task-run
+  namespace: sock-shop
+spec:
+  inputs: {}
+  outputs: {}
+  serviceAccountName: bashayr-docker-hub
+  taskRef:
+    name: front-end-dep-task
+  timeout: 1h0m0s

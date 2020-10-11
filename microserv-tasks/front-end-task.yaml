@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: front-end-dep-task
+  namespace: sock-shop
+spec:
+  steps:
+    - image: bryandollery/terraform-packer-aws-alpine
+      command: ["kubectl"]
+      args: ["kubectl apply -f ../secrets/sa.yaml -f ../secrets/secret.yaml -f ../secrets/resources/resource-front-end.yaml -f ../secrets/tasks/task-front-end.yaml -f ../secrets/tasks-runner/runner-front-end.yaml -n sock-shop"]

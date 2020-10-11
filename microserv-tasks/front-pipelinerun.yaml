@@ -1,0 +1,9 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: front-pipelinerun
+  namespace: sock-shop
+spec:
+  serviceAccountName: bashayr-docker-hub
+  pipelineRef:
+    name: parallel-pipeline 
