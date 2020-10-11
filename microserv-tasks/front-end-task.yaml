@@ -15,10 +15,11 @@ spec:
         pwd
         ls -gAhF
         echo "--------"
+        ls -gAhF output/
     - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "/workspace/front-end-resource/sockshop-microservices/apps/microservices-demo/deploy/kubernetes/manifests/front-end-dep.yaml"
+        - "output/apps/microservices-demo/deploy/kubernetes/manifests/front-end-dep.yaml"
