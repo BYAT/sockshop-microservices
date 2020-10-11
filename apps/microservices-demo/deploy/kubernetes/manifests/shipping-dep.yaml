@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: shipping
-        image: weaveworksdemos/shipping:0.4.8
+        image: bashayr/shipping
         env:
          - name: ZIPKIN
            value: zipkin.jaeger.svc.cluster.local

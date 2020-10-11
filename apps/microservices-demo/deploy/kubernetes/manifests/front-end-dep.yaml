@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: front-end
-        image: bashayr/front-end2
+        image: bashayr/front-end
         resources:
           limits:
             cpu: 300m
