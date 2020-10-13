@@ -8,7 +8,7 @@ copy pom.xml /tmp/
 run  --mount=type=cache,id=maven,target=/root/.m2,sharing=shared mvn clean package
 
 
-FROM java:openjdk-8-alpine 
+FROM adoptopenjdk/openjdk11:alpine
 
 WORKDIR /
 
@@ -30,4 +30,4 @@ LABEL org.label-schema.vendor="bashayr" \
   org.label-schema.vcs-ref="${COMMIT}" \
   org.label-schema.schema-version="1.0"
 
-ENTRYPOINT ["/usr/bin/java","-jar","./carts.jar", "--port=80"]
+ENTRYPOINT ["/opt/java/openjdk/bin/java","-jar","./carts.jar", "--port=80"]
