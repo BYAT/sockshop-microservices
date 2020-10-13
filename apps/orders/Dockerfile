@@ -1,10 +1,21 @@
+# syntax=docker/dockerfile:experimental
+FROM maven:3-jdk-11 as build
+WORKDIR /tmp
+
+copy src /tmp/src
+copy pom.xml /tmp/
+
+run --mount=type=cache,id=maven,target=/root/.m2,sharing=shared mvn clean package
+
 FROM weaveworksdemos/msd-java:jre-latest
 
-WORKDIR /usr/src/app
-COPY *.jar ./app.jar
+COPY --from=build /tmp/target/orders.jar /orders.jar
 
-RUN	chown -R ${SERVICE_USER}:${SERVICE_GROUP} ./app.jar
+run chmod a+rx ./orders.jar
+
+WORKDIR /
+COPY *.jar ./orders.jar
+
 
 USER ${SERVICE_USER}
-
-ENTRYPOINT ["/usr/local/bin/java.sh","-jar","./app.jar", "--port=80"]
+ENTRYPOINT ["/usr/bin/java","-jar","./orders.jar", "--port=80"]
