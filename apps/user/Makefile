@@ -1,15 +1,28 @@
-NAME = weaveworksdemos/user
-DBNAME = weaveworksdemos/user-db
+NAME = bashayr/user
+DBNAME = bashayr/user-db
 INSTANCE = user
-TESTDB = weaveworkstestuserdb
+TESTDB = user-db-test
 OPENAPI = $(INSTANCE)-testopenapi
-GROUP = weaveworksdemos
+GROUP = bashayr
 
 TAG=$(TRAVIS_COMMIT)
 
 default: docker
 
-
+bashayr-build:
+	docker build -t bashayr/$(INSTANCE)-dev .
+	docker build -t bashayr/user-db-test -f docker/user-db/Dockerfile docker/user-db/
+	docker build -t bashayr/user-test -f docker/user/Dockerfile-release .
+bashayr-test:
+		docker run -d --name my$(TESTDB) -h my$(TESTDB) bashayr/$(TESTDB)
+	docker run -d --name $(INSTANCE)-dev -p 8084:8084 --link my$(TESTDB) -e MONGO_HOST="my$(TESTDB):27017" bashayr/$(INSTANCE)-dev
+bashayr-dockertest: bashayr-build bashayr-test 
+	        bash scripts/testcontainer.sh
+		docker run -h openapi --rm --name $(OPENAPI) --link user-dev -v $(PWD)/apispec/:/tmp/specs/\
+                weaveworksdemos/openapi /tmp/specs/$(INSTANCE).json\
+                http://$(INSTANCE)-dev:8084/\
+                -f /tmp/specs/hooks.js
+		
 pre: 
 	go get -v github.com/Masterminds/glide
 

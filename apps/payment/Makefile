@@ -22,3 +22,5 @@ build:
 	docker build -t bashayr/payment .
 run: 
 	docker run --rm -it -p 8082:80 bashayr/payment
+docker-push:
+	docker push bashayr/payment
