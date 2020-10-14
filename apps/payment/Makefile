@@ -1,4 +1,4 @@
-NAME = weaveworksdemos/payment
+NAME = bashayr/payment0
 INSTANCE = payment
 
 .PHONY: default copy test
@@ -11,9 +11,14 @@ copy:
 	docker rm $(INSTANCE)
 
 release:
-	docker build -t $(NAME) -f ./docker/payment/Dockerfile-release .
+	docker build -t $(NAME) -f ./Dockerfile-release .
 
 test:
-	GROUP=weaveworksdemos COMMIT=$(COMMIT) ./scripts/build.sh
+	GROUP=weaveworksdemos COMMIT=$(COMMIT) bash scripts/build.sh
 	./test/test.sh unit.py
 	./test/test.sh container.py --tag $(COMMIT)
+
+build:
+	docker build -t bashayr/payment .
+run: 
+	docker run --rm -it -p 8082:80 bashayr/payment
