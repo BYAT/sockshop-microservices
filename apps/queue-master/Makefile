@@ -1,5 +1,5 @@
 build: 
-	DOCKER_BUILDKIT=1 docker build -t bashayr/queue-master -f docker/queue-master/Dockerfile .
+	docker build -t bashayr/queue-master .
 run: 
 	docker run -it --rm -p 8080:80 bashayr/queue-master
 docker-push:
