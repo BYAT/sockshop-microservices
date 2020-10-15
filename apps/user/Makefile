@@ -9,6 +9,18 @@ TAG=$(TRAVIS_COMMIT)
 
 default: docker
 
+build: build-images run
+up: health user
+build-images:
+	docker build -t bashayr/user-db -f docker/user-db/Dockerfile .
+	docker build -t bashayr/user .
+run:
+	docker run --rm -d -p 8080:80 bashayr/user
+	docker run --rm -d -p 27017:27017 bashayr/user-db
+health:
+	curl localhost:8084/health | jq
+user:
+	curl localhost:8084/user
 bashayr-build:
 	docker build -t bashayr/$(INSTANCE)-dev .
 	docker build -t bashayr/user-db-test -f docker/user-db/Dockerfile docker/user-db/

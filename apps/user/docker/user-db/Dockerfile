@@ -1,5 +1,7 @@
 FROM mongo:3
-ADD ./scripts /tmp/scripts
+COPY ./docker/user-db/scripts /tmp/scripts
+#COPY . /tmp/
+run ls -gAhF tmp/scripts
 
 # Modify child mongo to use /data/db-accounts as dbpath (because /data/db wont persist the build because it is already a VOLUME)
 RUN mkdir -p /data/db-users \

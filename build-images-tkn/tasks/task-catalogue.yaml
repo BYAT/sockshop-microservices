@@ -12,7 +12,7 @@ spec:
     description: Name (reference) of the image to build.
   - name: DOCKERFILE
     description: Path to the Dockerfile to build.
-    default: /workspace/catalogue-resource/apps/catalogue/docker/catalogue/Dockerfile
+    default: /workspace/catalogue-resource/apps/catalogue/Dockerfile
   - name: CONTEXT
     description: The build context used by Kaniko.
     default: /workspace/catalogue-resource/apps/catalogue
