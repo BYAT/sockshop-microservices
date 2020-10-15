@@ -4,14 +4,11 @@ metadata:
   name: front-task-run
   namespace: sock-shop
 spec:
-  inputs: {}
-  outputs: {}
   serviceAccountName: bashayr-docker-hub
   workspaces:
   - name: output # must match workspace name in the Task
     persistentVolumeClaim:
       claimName: kh-pvc-2 # this PVC must already exist
-    subPath: clone
   taskRef:
     name: front-end-dep-task
   timeout: 1h0m0s

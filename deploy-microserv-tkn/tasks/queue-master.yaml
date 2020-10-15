@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: queue-master-dep-task
+  namespace: sock-shop
+  serviceAccountName: bashayr-docker-hub
+spec:
+  workspaces:
+    - name: output
+  steps: 
+    - name: try 
+      image: ubuntu  # contains bash
+      script: |
+        #!/usr/bin/env bash
+        pwd
+        ls -gAhF
+        echo "--------"
+        ls -gAhF output/
+    - name: run-kubectl
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "apply"
+        - "-f"
+        - "output/apps/microservices-demo/deploy-microserv-tkn/services/queue-master-svc.yaml" 
+        - "-f"
+        - "output/apps/microservices-demo/deploy-microserv-tkn/services/queue-master-dep.yaml"
