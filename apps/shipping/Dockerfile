@@ -1,5 +1,4 @@
-# syntax=docker/dockerfile:experimental
-FROM maven:3-jdk-11 as build
+FROM maven:3-jdk-8 as build
 WORKDIR /tmp
 
 copy src /tmp/src
