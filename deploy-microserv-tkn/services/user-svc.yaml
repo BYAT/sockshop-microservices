@@ -5,7 +5,6 @@ metadata:
   name: user
   labels:
     name: user
-  namespace: sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -13,4 +12,3 @@ spec:
     targetPort: 80
   selector:
     name: user
-

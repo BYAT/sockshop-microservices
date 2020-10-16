@@ -1,15 +1,14 @@
 apiVersion: tekton.dev/v1beta1 
 kind: Pipeline
 metadata:
-  name: parallel-pipeline
-  namespace: sock-shop
+  name: queue-master-pipeline
 spec:
   workspaces:
     - name: output
   tasks:
-    - name: front-pipe
+    - name: queue-master-pipe
       taskRef:               # will start execution immediately
-        name: front-end-dep-task
+        name: queue-master-dep-task
       workspaces:
         - name: output
           workspace: output

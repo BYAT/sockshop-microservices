@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: queue-master-dep-task
-  namespace: sock-shop
   serviceAccountName: bashayr-docker-hub
 spec:
   workspaces:
@@ -22,6 +21,6 @@ spec:
       args:
         - "apply"
         - "-f"
-        - "output/apps/microservices-demo/deploy-microserv-tkn/services/queue-master-svc.yaml" 
+        - "output/deploy-microserv-tkn/services/queue-master-svc.yaml" 
         - "-f"
-        - "output/apps/microservices-demo/deploy-microserv-tkn/services/queue-master-dep.yaml"
+        - "output/deploy-microserv-tkn/services/queue-master-dep.yaml"

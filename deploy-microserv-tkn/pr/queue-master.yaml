@@ -1,8 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: front-pipelinerun
-  namespace: sock-shop
+  name: queue-master-pipelinerun
 spec:
   serviceAccountName: bashayr-docker-hub
   workspaces:
@@ -10,4 +9,4 @@ spec:
     persistentVolumeClaim:
       claimName: kh-pvc-2 # this PVC must already exist
   pipelineRef:
-    name: parallel-pipeline 
+    name: queue-master-pipeline 

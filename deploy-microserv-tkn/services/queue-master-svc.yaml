@@ -7,11 +7,12 @@ metadata:
     name: queue-master
   annotations:
     prometheus.io/path: "/prometheus"
-  namespace: sock-shop
 spec:
+  type: NodePort
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
+    nodePort: 30002
   selector:
     name: queue-master

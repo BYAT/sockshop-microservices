@@ -8,3 +8,5 @@ logs:
 	tkn tr logs -f -n sock-shop
 get:
 	kubectl get all -n sock-shop
+delete-services:
+	kubectl delete -f ./complete.yaml  -n sock-shop
