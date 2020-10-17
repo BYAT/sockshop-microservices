@@ -74,7 +74,7 @@ spec:
     spec:
       containers:
       - name: carts
-        image: weaveworksdemos/carts:0.4.8
+        image: bashayr/carts
         ports:
          - containerPort: 80
         env:
@@ -137,7 +137,7 @@ spec:
     spec:
       containers:
       - name: catalogue-db
-        image: bashayr/catalogue-db
+        image: weaveworksdemos/catalogue:0.3.5
         env:
           - name: MYSQL_ROOT_PASSWORD
             value: fake_password
