@@ -137,7 +137,7 @@ spec:
     spec:
       containers:
       - name: catalogue-db
-        image: weaveworksdemos/catalogue-db:0.3.0
+        image: bashayr/catalogue-db
         env:
           - name: MYSQL_ROOT_PASSWORD
             value: fake_password
@@ -183,7 +183,7 @@ spec:
     spec:
       containers:
       - name: catalogue
-        image: weaveworksdemos/catalogue:0.3.5
+        image: bashayr/catalogue
         ports:
         - containerPort: 80
         securityContext:
@@ -232,7 +232,7 @@ spec:
     spec:
       containers:
       - name: front-end
-        image: weaveworksdemos/front-end:0.3.12
+        image: bashayr/front-end
         resources:
           requests:
             cpu: 100m
