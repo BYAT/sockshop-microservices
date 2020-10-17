@@ -109,10 +109,12 @@ metadata:
     name: carts
   namespace: sock-shop
 spec:
+  type: NodePort
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
+    nodePort: 30002
   selector:
     name: carts
 ---
@@ -204,10 +206,12 @@ metadata:
     name: catalogue
   namespace: sock-shop
 spec:
+  type: NodePort
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
+    nodePort: 30003
   selector:
     name: catalogue
 ---
@@ -372,10 +376,12 @@ metadata:
     name: orders
   namespace: sock-shop
 spec:
+  type: NodePort
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
+    nodePort: 30004
   selector:
     name: orders
 ---
@@ -421,10 +427,12 @@ metadata:
     name: payment
   namespace: sock-shop
 spec:
+  type: NodePort
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
+    nodePort: 30005
   selector:
     name: payment
 ---
@@ -463,10 +471,12 @@ metadata:
     prometheus.io/path: "/prometheus"
   namespace: sock-shop
 spec:
+  type: NodePort
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
+    nodePort: 30006
   selector:
     name: queue-master
 ---
@@ -574,10 +584,12 @@ metadata:
     name: shipping
   namespace: sock-shop
 spec:
+  type: NodePort
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
+    nodePort: 30007
   selector:
     name: shipping
 ---
@@ -683,9 +695,11 @@ metadata:
     name: user
   namespace: sock-shop
 spec:
+  type: NodePort
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
+    nodePort: 30008
   selector:
     name: user
