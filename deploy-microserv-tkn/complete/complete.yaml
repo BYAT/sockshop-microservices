@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: carts-db
@@ -7,13 +7,10 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: carts-db
   template:
     metadata:
       labels:
-        app: carts-db
+        name: carts-db
     spec:
       containers:
       - name: carts-db
@@ -53,9 +50,9 @@ spec:
   - port: 27017
     targetPort: 27017
   selector:
-    app: carts-db
+    name: carts-db
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: carts
@@ -64,17 +61,14 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: carts
   template:
     metadata:
       labels:
-        app: carts
+        name: carts
     spec:
       containers:
       - name: carts
-        image: bashayr/carts
+        image: weaveworksdemos/carts:0.4.8
         ports:
          - containerPort: 80
         env:
@@ -114,9 +108,9 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    app: carts
+    name: carts
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: catalogue-db
@@ -125,17 +119,14 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: catalogue-db
   template:
     metadata:
       labels:
-        app: catalogue-db
+        name: catalogue-db
     spec:
       containers:
       - name: catalogue-db
-        image: bashayr/catalogue-db
+        image: weaveworksdemos/catalogue-db:0.3.0
         env:
           - name: MYSQL_ROOT_PASSWORD
             value: fake_password
@@ -160,9 +151,9 @@ spec:
   - port: 3306
     targetPort: 3306
   selector:
-    app: catalogue-db
+    name: catalogue-db
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: catalogue
@@ -171,17 +162,14 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: catalogue
   template:
     metadata:
       labels:
-        app: catalogue
+        name: catalogue
     spec:
       containers:
       - name: catalogue
-        image: bashayr/catalogue
+        image: weaveworksdemos/catalogue:0.3.5
         ports:
         - containerPort: 80
         securityContext:
@@ -209,18 +197,15 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    app: catalogue
+    name: catalogue
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: front-end
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      name: front-end
   template:
     metadata:
       labels:
@@ -228,7 +213,7 @@ spec:
     spec:
       containers:
       - name: front-end
-        image: bashayr/front-end
+        image: weaveworksdemos/front-end:0.3.12
         resources:
           requests:
             cpu: 100m
@@ -261,7 +246,7 @@ spec:
   selector:
     name: front-end
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: orders-db
@@ -270,13 +255,10 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: orders-db
   template:
     metadata:
       labels:
-        app: orders-db
+        name: orders-db
     spec:
       containers:
       - name: orders-db
@@ -316,9 +298,9 @@ spec:
   - port: 27017
     targetPort: 27017
   selector:
-    app: orders-db
+    name: orders-db
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: orders
@@ -327,17 +309,14 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: orders
   template:
     metadata:
       labels:
-        app: orders
+        name: orders
     spec:
       containers:
       - name: orders
-        image: bashayr/orders
+        image: weaveworksdemos/orders:0.4.7
         env:
          - name: ZIPKIN
            value: zipkin.jaeger.svc.cluster.local
@@ -377,9 +356,9 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    app: orders
+    name: orders
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: payment
@@ -388,9 +367,6 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      name: payment
   template:
     metadata:
       labels:
@@ -398,7 +374,7 @@ spec:
     spec:
       containers:
       - name: payment
-        image: bashayr/payment
+        image: weaveworksdemos/payment:0.4.3
         ports:
         - containerPort: 80
         securityContext:
@@ -428,7 +404,7 @@ spec:
   selector:
     name: payment
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: queue-master
@@ -437,17 +413,14 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: queue-master
   template:
     metadata:
       labels:
-        app: queue-master
+        name: queue-master
     spec:
       containers:
       - name: queue-master
-        image: bashayr/queue-master
+        image: weaveworksdemos/queue-master:0.3.1
         ports:
         - containerPort: 80
       nodeSelector:
@@ -468,9 +441,9 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    app: queue-master
+    name: queue-master
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: rabbitmq
@@ -479,13 +452,10 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: rabbitmq
   template:
     metadata:
       labels:
-        app: rabbitmq
+        name: rabbitmq
     spec:
       containers:
       - name: rabbitmq
@@ -518,9 +488,9 @@ spec:
   - port: 5672
     targetPort: 5672
   selector:
-    app: rabbitmq
+    name: rabbitmq
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: shipping
@@ -529,17 +499,14 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: shipping
   template:
     metadata:
       labels:
-        app: shipping
+        name: shipping
     spec:
       containers:
       - name: shipping
-        image: bashayr/shipping
+        image: weaveworksdemos/shipping:0.4.8
         env:
          - name: ZIPKIN
            value: zipkin.jaeger.svc.cluster.local
@@ -579,9 +546,9 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    app: shipping
+    name: shipping
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: user-db
@@ -590,9 +557,6 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      name: user-db
   template:
     metadata:
       labels:
@@ -600,7 +564,7 @@ spec:
     spec:
       containers:
       - name: user-db
-        image: bashayr/user-db
+        image: weaveworksdemos/user-db:0.4.0
         ports:
         - name: mongo
           containerPort: 27017
@@ -638,7 +602,7 @@ spec:
   selector:
     name: user-db
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: user
@@ -647,17 +611,14 @@ metadata:
   namespace: sock-shop
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: user
   template:
     metadata:
       labels:
-        app: user
+        name: user
     spec:
       containers:
       - name: user
-        image: bashayr/user
+        image: weaveworksdemos/user:0.4.7
         ports:
         - containerPort: 80
         env:
@@ -688,5 +649,4 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    app: user
-
+    name: user
