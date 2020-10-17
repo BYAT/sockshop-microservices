@@ -2,11 +2,8 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: front-end-dep-task
-  namespace: sock-shop
   serviceAccountName: bashayr-docker-hub
 spec:
-  workspaces:
-    - name: output
   steps: 
     - name: try 
       image: ubuntu  # contains bash
@@ -15,15 +12,15 @@ spec:
         pwd
         ls -gAhF
         echo "--------"
-        ls -gAhF output/
+        ls -gAhF 
     - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "output/deploy-microserv-tkn/services/front-end-svc.yaml" 
+        - "$(resources.inputs.main.path)/deploy-microserv-tkn/services/front-end-svc.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/front-end-dep.yaml"
+        - "$(resources.inputs.main.path)/deploy-microserv-tkn/services/front-end-dep.yaml"
         - "-f"
-        - "output/deploy-microserv-tkn/ingress.yaml"
+        - "$(resources.inputs.main.path)/deploy-microserv-tkn/ingress.yaml"

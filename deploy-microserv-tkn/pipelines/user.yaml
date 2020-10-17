@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: user-pipeline
-  namespace: sock-shop
 spec:
   workspaces:
     - name: output

@@ -4,7 +4,6 @@ metadata:
   name: carts-db
   labels:
     name: carts-db
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -46,7 +45,6 @@ metadata:
   name: carts-db
   labels:
     name: carts-db
-  namespace: sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -61,7 +59,6 @@ metadata:
   name: carts
   labels:
     name: carts
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -107,7 +104,6 @@ metadata:
   name: carts
   labels:
     name: carts
-  namespace: sock-shop
 spec:
   type: NodePort
   ports:
@@ -124,7 +120,6 @@ metadata:
   name: catalogue-db
   labels:
     name: catalogue-db
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -155,7 +150,6 @@ metadata:
   name: catalogue-db
   labels:
     name: catalogue-db
-  namespace: sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -170,7 +164,6 @@ metadata:
   name: catalogue
   labels:
     name: catalogue
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -193,7 +186,6 @@ metadata:
   name: catalogue
   labels:
     name: catalogue
-  namespace: sock-shop
 spec:
   type: NodePort
   ports:
@@ -208,7 +200,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: front-end
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -244,7 +235,6 @@ metadata:
   name: front-end
   labels:
     name: front-end
-  namespace: sock-shop
 spec:
   type: NodePort
   ports:
@@ -260,7 +250,6 @@ metadata:
   name: orders-db
   labels:
     name: orders-db
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -302,7 +291,6 @@ metadata:
   name: orders-db
   labels:
     name: orders-db
-  namespace: sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -317,7 +305,6 @@ metadata:
   name: orders
   labels:
     name: orders
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -354,7 +341,6 @@ metadata:
   name: orders
   labels:
     name: orders
-  namespace: sock-shop
 spec:
   type: NodePort
   ports:
@@ -371,7 +357,6 @@ metadata:
   name: payment
   labels:
     name: payment
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -405,7 +390,6 @@ metadata:
   name: payment
   labels:
     name: payment
-  namespace: sock-shop
 spec:
   type: NodePort
   ports:
@@ -422,7 +406,6 @@ metadata:
   name: queue-master
   labels:
     name: queue-master
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -449,7 +432,6 @@ metadata:
     name: queue-master
   annotations:
     prometheus.io/path: "/prometheus"
-  namespace: sock-shop
 spec:
   type: NodePort
   ports:
@@ -466,7 +448,6 @@ metadata:
   name: rabbitmq
   labels:
     name: rabbitmq
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -501,7 +482,6 @@ metadata:
   name: rabbitmq
   labels:
     name: rabbitmq
-  namespace: sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -516,7 +496,6 @@ metadata:
   name: shipping
   labels:
     name: shipping
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -562,7 +541,6 @@ metadata:
   name: shipping
   labels:
     name: shipping
-  namespace: sock-shop
 spec:
   type: NodePort
   ports:
@@ -579,7 +557,6 @@ metadata:
   name: user-db
   labels:
     name: user-db
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -621,7 +598,6 @@ metadata:
   name: user-db
   labels:
     name: user-db
-  namespace: sock-shop
 spec:
   ports:
     # the port that this service should serve on
@@ -636,7 +612,6 @@ metadata:
   name: user
   labels:
     name: user
-  namespace: sock-shop
 spec:
   replicas: 1
   selector:
@@ -673,7 +648,6 @@ metadata:
   name: user
   labels:
     name: user
-  namespace: sock-shop
 spec:
   type: NodePort
   ports:

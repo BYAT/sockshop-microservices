@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1alpha1
 kind: TaskRun
 metadata:
   name: task-run
-  namespace: sock-shop
 spec:
   serviceAccountName: bashayr-docker-hub
   workspaces:
