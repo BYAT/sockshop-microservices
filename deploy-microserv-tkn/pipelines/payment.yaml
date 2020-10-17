@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1 
+kind: Pipeline
+metadata:
+  name: payment-pipeline
+spec:
+  workspaces:
+    - name: output
+  tasks:
+    - name: payment-pipe
+      taskRef:               # will start execution immediately
+        name: payment-dep-task
+      workspaces:
+        - name: output
+          workspace: output

@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1 
+kind: Pipeline
+metadata:
+  name: carts-pipeline
+spec:
+  workspaces:
+    - name: output
+  tasks:
+    - name: carts-pipe
+      taskRef:               # will start execution immediately
+        name: carts-dep-task
+      workspaces:
+        - name: output
+          workspace: output

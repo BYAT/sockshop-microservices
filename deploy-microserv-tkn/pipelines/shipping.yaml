@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1 
+kind: Pipeline
+metadata:
+  name: shipping-pipeline
+spec:
+  workspaces:
+    - name: output
+  tasks:
+    - name: shipping-pipe
+      taskRef:               # will start execution immediately
+        name: shipping-dep-task
+      workspaces:
+        - name: output
+          workspace: output

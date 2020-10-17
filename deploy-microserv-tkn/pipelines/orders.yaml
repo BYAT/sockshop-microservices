@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1 
+kind: Pipeline
+metadata:
+  name: orders-pipeline
+spec:
+  workspaces:
+    - name: output
+  tasks:
+    - name: orders-pipe
+      taskRef:               # will start execution immediately
+        name: orders-dep-task
+      workspaces:
+        - name: output
+          workspace: output

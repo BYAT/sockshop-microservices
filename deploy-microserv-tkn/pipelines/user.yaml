@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1 
+kind: Pipeline
+metadata:
+  name: user-pipeline
+  namespace: sock-shop
+spec:
+  workspaces:
+    - name: output
+  tasks:
+    - name: user-pipe
+      taskRef:               # will start execution immediately
+        name: user-dep-task
+      workspaces:
+        - name: output
+          workspace: output

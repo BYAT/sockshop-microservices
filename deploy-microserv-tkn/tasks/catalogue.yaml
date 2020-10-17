@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: queue-master-dep-task
+  name: catalogue-dep-task
   serviceAccountName: bashayr-docker-hub
 spec:
   workspaces:
@@ -21,10 +21,10 @@ spec:
       args:
         - "apply"
         - "-f"
-        - "output/deploy-microserv-tkn/services/rabbitmq-svc.yaml" 
+        - "output/deploy-microserv-tkn/services/catalogue-db-svc.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/rabbitmq-dep.yaml" 
+        - "output/deploy-microserv-tkn/services/catalogue-db-dep.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/queue-master-svc.yaml" 
+        - "output/deploy-microserv-tkn/services/catalogue-svc.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/queue-master-dep.yaml"
+        - "output/deploy-microserv-tkn/services/catalogue-dep.yaml"

@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1 
+kind: Pipeline
+metadata:
+  name: catalogue-pipeline
+spec:
+  workspaces:
+    - name: output
+  tasks:
+    - name: catalogue-pipe
+      taskRef:               # will start execution immediately
+        name: catalogue-dep-task
+      workspaces:
+        - name: output
+          workspace: output
