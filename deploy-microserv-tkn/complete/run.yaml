@@ -4,10 +4,10 @@ metadata:
   name: task-run
 spec:
   serviceAccountName: bashayr-docker-hub
-  workspaces:
-  - name: output # must match workspace name in the Task
-    persistentVolumeClaim:
-      claimName: kh-pvc-2 # this PVC must already exist
   taskRef:
-    name: dep-task
-  timeout: 1h0m0s
+    name: dep-task 
+  resources:
+    inputs:
+      - name: main
+        resourceRef:
+          name: main

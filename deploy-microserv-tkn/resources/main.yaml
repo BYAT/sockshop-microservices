@@ -12,4 +12,3 @@ spec:
   secrets:
     - fieldName: authToken
       secretName: github-secrets
-      secretKey: token
