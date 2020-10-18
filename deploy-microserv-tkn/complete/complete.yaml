@@ -372,15 +372,6 @@ spec:
         image: bashayr/payment
         ports:
         - containerPort: 80
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 10001
-          capabilities:
-            drop:
-              - all
-            add:
-              - NET_BIND_SERVICE
-          readOnlyRootFilesystem: true
       nodeSelector:
         beta.kubernetes.io/os: linux
 ---
@@ -463,16 +454,6 @@ spec:
         image: rabbitmq:3.6.8
         ports:
         - containerPort: 5672
-        securityContext:
-          capabilities:
-            drop:
-              - all
-            add:
-              - CHOWN
-              - SETGID
-              - SETUID
-              - DAC_OVERRIDE
-          readOnlyRootFilesystem: true
       nodeSelector:
         beta.kubernetes.io/os: linux
 ---
@@ -508,7 +489,7 @@ spec:
     spec:
       containers:
       - name: shipping
-        image: weaveworksdemos/shipping:0.4.8
+        image: bashayr/shipping
         env:
          - name: ZIPKIN
            value: zipkin.jaeger.svc.cluster.local
@@ -516,15 +497,6 @@ spec:
            value: -Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
         ports:
         - containerPort: 80
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 10001
-          capabilities:
-            drop:
-              - all
-            add:
-              - NET_BIND_SERVICE
-          readOnlyRootFilesystem: true
         volumeMounts:
         - mountPath: /tmp
           name: tmp-volume
@@ -573,15 +545,6 @@ spec:
         ports:
         - name: mongo
           containerPort: 27017
-        securityContext:
-          capabilities:
-            drop:
-              - all
-            add:
-              - CHOWN
-              - SETGID
-              - SETUID
-          readOnlyRootFilesystem: true
         volumeMounts:
         - mountPath: /tmp
           name: tmp-volume
@@ -630,15 +593,6 @@ spec:
         env:
         - name: MONGO_HOST
           value: user-db:27017
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 10001
-          capabilities:
-            drop:
-              - all
-            add:
-              - NET_BIND_SERVICE
-          readOnlyRootFilesystem: true
       nodeSelector:
         beta.kubernetes.io/os: linux
 ---
