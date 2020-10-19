@@ -21,10 +21,10 @@ spec:
       args:
         - "apply"
         - "-f"
-        - "output/deploy-microserv-tkn/services/carts-db-svc.yml" 
+        - "output/deploy-microserv-tkn/services/carts-db-svc.yaml" 
         - "-f"
         - "output/deploy-microserv-tkn/services/carts-db-dep.yaml"
         - "-f"
-        - "output/deploy-microserv-tkn/services/carts-svc.yaml" 
+        - "output/deploy-microserv-tkn/services/carts-svc.yml" 
         - "-f"
         - "output/deploy-microserv-tkn/services/carts-dep.yaml"

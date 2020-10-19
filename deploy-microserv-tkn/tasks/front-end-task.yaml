@@ -24,5 +24,3 @@ spec:
         - "output/deploy-microserv-tkn/services/front-end-svc.yaml" 
         - "-f"
         - "output/deploy-microserv-tkn/services/front-end-dep.yaml"
-        - "-f"
-        - "output/deploy-microserv-tkn/ingress.yaml"
