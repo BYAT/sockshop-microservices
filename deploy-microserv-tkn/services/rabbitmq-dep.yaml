@@ -20,15 +20,5 @@ spec:
         image: rabbitmq:3.6.8
         ports:
         - containerPort: 5672
-        securityContext:
-          capabilities:
-            drop:
-              - all
-            add:
-              - CHOWN
-              - SETGID
-              - SETUID
-              - DAC_OVERRIDE
-          readOnlyRootFilesystem: true
       nodeSelector:
         beta.kubernetes.io/os: linux

@@ -4,3 +4,4 @@ metadata:
   name: bashayr-docker-hub
 secrets:
   - name: bashayr-docker-hub-creds
+  - name: github-secrets

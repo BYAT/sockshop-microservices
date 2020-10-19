@@ -1,5 +1,5 @@
 apply:
-	kubectl apply -f sa.yaml -f ../secret.yaml -f role.yaml -f ../resources/github-secrets.yaml -f ../resources/main.yaml -f task.yaml -f run.yaml -f ingress.yaml -n test
+	kubectl apply  -f ../secret.yaml -f ../resources/github-secrets.yaml -f role.yaml -f sa.yaml -f ../resources/main.yaml -f task.yaml -f run.yaml -f ingress.yaml -n test
 delete:
 	kubectl delete -f task.yaml -f run.yaml -f complete.yaml -n test
 list:

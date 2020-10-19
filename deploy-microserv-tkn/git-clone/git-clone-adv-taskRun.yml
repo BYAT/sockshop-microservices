@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: git-clone-runner
+spec:
+  serviceAccountName: bashayr-docker-hub
+  taskRef:
+    name: git-clone-adv
+  workspaces:
+  - name: output # must match workspace name in the Task
+    persistentVolumeClaim:
+      claimName: kh-pvc-2
+  params:
+  - name: url
+    value: https://github.com/BYAT/sockshop-microservices 
+  - name: revision
+    value: dev

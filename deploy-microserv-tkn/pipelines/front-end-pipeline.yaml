@@ -1,12 +1,15 @@
 apiVersion: tekton.dev/v1beta1 
 kind: Pipeline
 metadata:
-  name: parallel-pipeline
+  name: front-end-pipeline
 spec:
+  workspaces:
+    - name: output
   tasks:
     - name: front-pipe
       taskRef:               # will start execution immediately
         name: front-end-dep-task
-      params:
-      - name: url
-        value: $(params.repo-url)
+      workspaces:
+        - name: output
+          workspace: output
+

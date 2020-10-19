@@ -4,6 +4,8 @@ metadata:
   name: front-end-dep-task
   serviceAccountName: bashayr-docker-hub
 spec:
+  workspaces:
+    - name: output
   steps: 
     - name: try 
       image: ubuntu  # contains bash
@@ -12,15 +14,15 @@ spec:
         pwd
         ls -gAhF
         echo "--------"
-        ls -gAhF 
+        ls -gAhF output/
     - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "$(resources.inputs.main.path)/deploy-microserv-tkn/services/front-end-svc.yaml" 
+        - "output/deploy-microserv-tkn/services/front-end-svc.yaml" 
         - "-f"
-        - "$(resources.inputs.main.path)/deploy-microserv-tkn/services/front-end-dep.yaml"
+        - "output/deploy-microserv-tkn/services/front-end-dep.yaml"
         - "-f"
-        - "$(resources.inputs.main.path)/deploy-microserv-tkn/ingress.yaml"
+        - "output/deploy-microserv-tkn/ingress.yaml"
