@@ -10,4 +10,8 @@ spec:
       claimName: kh-pvc-2 # this PVC must already exist
   pipelineRef:
     name: front-end-pipeline 
+  resources:
+    - name: front-end-resource
+      resourceRef:
+        name: front-end-resource
 

@@ -3,21 +3,22 @@ kind: Pipeline
 metadata:
   name: front-end-pipeline
 spec:
+  resources:
+    - name: front-end-resource
+      type: git
   workspaces:
     - name: output
   tasks:
     - name: dockr-front-end-pip
       taskRef:               # will start execution immediately
         name: dockr-front-end
-      workspaces: #ADD
-      - name: front-end-resource #ADD this is work space where will be under ourput
-        workspace: output #ADD
       params:
       - name: IMAGE
         value: "bashayr/front-end"
-      params:
-      - name: url
-        value: https://github.com/BYAT/sockshop-microservices
+      resources:
+        inputs:
+        - name: front-end-resource
+          resource: front-end-resource
     - name: front-pipe
       taskRef:               # will start execution immediately
         name: front-end-dep-task
