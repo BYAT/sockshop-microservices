@@ -9,7 +9,7 @@ logs:
 apply-front-end:
 	kubectl apply -f role.yaml -f workspace.yaml -f resources/resource-front-end.yaml -f tasks/front-end-task.yaml -f pipelines/front-end-pipeline.yaml -f pr/front-pipelinerun.yaml -n test
 delete-front-end:
-	 kubectl delete -f ../build-images-tkn/resources/resource-front-end.yaml -f tasks/front-end-task.yaml -f pipelines/front-end-pipeline.yaml -f pr/front-pipelinerun.yaml -f services/front-end-dep.yaml -f services/front-end-svc.yaml -n test
+	 kubectl delete -f resources/resource-front-end.yaml -f tasks/front-end-task.yaml -f pipelines/front-end-pipeline.yaml -f pr/front-pipelinerun.yaml -f services/front-end-dep.yaml -f services/front-end-svc.yaml -n test
 get:
 	kubectl get all -n test
 apply-queue-master:
