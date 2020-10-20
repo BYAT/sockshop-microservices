@@ -3,12 +3,27 @@ kind: Pipeline
 metadata:
   name: carts-pipeline
 spec:
+  resources:
+    - name: carts-resource
+      type: git
   workspaces:
     - name: output
   tasks:
+    - name: dockr-carts-pip
+      taskRef:               # will start execution immediately
+        name: dockr-carts
+      params:
+      - name: IMAGE
+        value: "bashayr/carts"
+      resources:
+        inputs:
+        - name: carts-resource
+          resource: carts-resource
     - name: carts-pipe
       taskRef:               # will start execution immediately
         name: carts-dep-task
+      runAfter:
+        - dockr-carts-pip
       workspaces:
         - name: output
           workspace: output

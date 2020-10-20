@@ -14,6 +14,10 @@ delete-front-end-with-docker:
 	kubectl delete -f ./build-images-tkn/task-front-end.yaml -f tasks/front-end-task.yaml -f pipelines/front-end-pipeline.yaml -f pr/front-pipelinerun.yaml -n test
 delete-front-end:
 	 kubectl delete -f resources/resource-front-end.yaml -f tasks/front-end-task.yaml -f pipelines/front-end-pipeline.yaml -f pr/front-pipelinerun.yaml -f services/front-end-dep.yaml -f services/front-end-svc.yaml -n test
+carts-with-docker:
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-carts.yaml -f ./build-images-tkn/task-carts.yaml  -f tasks/carts.yaml  -f tasks/carts.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  -n test
+delete-carts-with-docker:
+	kubectl delete -f ./build-images-tkn/task-carts.yaml  -f tasks/carts.yaml  -f tasks/carts.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  -n test
 get:
 	kubectl get all -n test
 apply-queue-master:
