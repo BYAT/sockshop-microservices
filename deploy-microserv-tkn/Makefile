@@ -26,6 +26,15 @@ order--with-docker:
 	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-order.yaml -f ./build-images-tkn/task-order.yaml -f tasks/orders.yaml -f pipelines/orders.yaml -f  pr/orders.yaml -n test
 delete-order--with-docker:
 	kubectl delete -f ./build-images-tkn/task-order.yaml -f tasks/orders.yaml -f pipelines/orders.yaml -f  pr/orders.yaml -n test
+delete-user-with-docker:
+	kubectl delete -f ./build-images-tkn/task-user-db.yaml -f ./build-images-tkn/task-user.yaml -f tasks/user.yaml -f pipelines/user.yaml -f pr/user.yaml -n test
+user-with-docker:
+	 kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-user-db.yaml -f resources/resource-user.yaml -f ./build-images-tkn/task-user-db.yaml -f ./build-images-tkn/task-user.yaml -f tasks/user.yaml -f pipelines/user.yaml -f pr/user.yaml -n test 
+payment-with-docker:
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-payment.yaml -f ./build-images-tkn/task-payment.yaml -f  tasks/payment.yaml -f pipelines/payment.yaml -f  pr/payment.yaml -n test 
+delete-payment-with-docker:
+	kubectl delete -f ./build-images-tkn/task-payment.yaml -f  tasks/payment.yaml -f pipelines/payment.yaml -f  pr/payment.yaml -n test
+
 get:
 	kubectl get all -n test
 apply-queue-master:

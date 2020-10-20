@@ -5,10 +5,39 @@ metadata:
 spec:
   workspaces:
     - name: output
+  resources: 
+    - name: user-resource
+      type: git
+    - name: user-db-resource
+      type: git
   tasks:
-    - name: user-pipe
-      taskRef:               # will start execution immediately
+    - name: dockr-user-db-pip # task 1: build and push user db image
+      taskRef:
+        name: dockr-user-db
+      params:
+      - name: IMAGE
+        value: "bashayr/user-db"
+      resources:
+        inputs:
+        - name: user-db-resource
+          resource: user-db-resource
+    - name: dockr-user-pip # task 2: build and push user image
+      taskRef:      
+        name: dockr-user
+      runAfter:          
+        - dockr-user-db-pip
+      params:
+      - name: IMAGE
+        value: "bashayr/user"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+    - name: user-pipe   # task 3:
+      taskRef:          
         name: user-dep-task
+      runAfter:
+        - dockr-user-pip
       workspaces:
         - name: output
           workspace: output

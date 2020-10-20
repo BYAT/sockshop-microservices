@@ -5,10 +5,25 @@ metadata:
 spec:
   workspaces:
     - name: output
+  resources: 
+    - name: payment-resource
+      type: git
   tasks:
-    - name: payment-pipe
+    - name: dockr-payment-pip
       taskRef:               # will start execution immediately
+        name: dockr-payment
+      params:
+      - name: IMAGE
+        value: "bashayr/payment"
+      resources:
+        inputs:
+        - name: payment-resource
+          resource: payment-resource
+    - name: payment-pipe # task 2: deploy service
+      taskRef:            
         name: payment-dep-task
+      runAfter:
+        - dockr-payment-pip
       workspaces:
         - name: output
           workspace: output

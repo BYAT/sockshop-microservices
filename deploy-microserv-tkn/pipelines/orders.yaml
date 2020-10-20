@@ -22,6 +22,8 @@ spec:
     - name: orders-pipe
       taskRef:               # will start execution immediately
         name: orders-dep-task
+      runAfter:
+        - dockr-order-pip
       workspaces:
         - name: output
           workspace: output
