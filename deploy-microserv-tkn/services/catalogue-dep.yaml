@@ -18,7 +18,5 @@ spec:
       containers:
       - name: catalogue
         image: bashayr/catalogue:v1
-        ports:
-        - containerPort: 80
       nodeSelector:
         beta.kubernetes.io/os: linux

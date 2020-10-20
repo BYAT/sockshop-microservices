@@ -5,9 +5,11 @@ metadata:
   labels:
     name: catalogue
 spec:
+  type: NodePort
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
+    nodePort: 30003
   selector:
     name: catalogue
