@@ -5,10 +5,25 @@ metadata:
 spec:
   workspaces:
     - name: output
+  resources: 
+    - name: shipping-resource
+      type: git
   tasks:
-    - name: shipping-pipe
-      taskRef:               # will start execution immediately
+    - name: dockr-shipping-pip
+      taskRef:               # task 1
+        name: dockr-shipping
+      params:
+      - name: IMAGE
+        value: "bashayr/shipping"
+      resources:
+        inputs:
+        - name: shipping-resource
+          resource: shipping-resource
+    - name: shipping-pipe #task 2
+      taskRef:               
         name: shipping-dep-task
+      runAfter:
+        - dockr-shipping-pip
       workspaces:
         - name: output
           workspace: output

@@ -5,10 +5,25 @@ metadata:
 spec:
   workspaces:
     - name: output
+  resources: 
+    - name: queue-master-resource
+      type: git
   tasks:
+    - name: dockr-queue-master-pip
+      taskRef:               
+        name: dockr-queue-master
+      params:
+      - name: IMAGE
+        value: "bashayr/queue-master"
+      resources:
+        inputs:
+        - name: queue-master-resource
+          resource: queue-master-resource
     - name: queue-master-pipe
-      taskRef:               # will start execution immediately
+      taskRef:               
         name: queue-master-dep-task
+      runAfter:
+        - dockr-queue-master-pip
       workspaces:
         - name: output
           workspace: output
