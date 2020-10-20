@@ -20,7 +20,7 @@ rolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
 serviceaccount/ingress-nginx-admission created
 Logging: install-elasticsearch
 NAME: elasticsearch
-LAST DEPLOYED: Tue Oct 20 08:47:12 2020
+LAST DEPLOYED: Tue Oct 20 11:08:37 2020
 NAMESPACE: logging
 STATUS: deployed
 REVISION: 1
@@ -31,7 +31,7 @@ NOTES:
   $ helm test elasticsearch --cleanup
 Logging: install-fluent-bit
 NAME: fluent-bit
-LAST DEPLOYED: Tue Oct 20 08:47:14 2020
+LAST DEPLOYED: Tue Oct 20 11:08:39 2020
 NAMESPACE: logging
 STATUS: deployed
 REVISION: 1
@@ -43,14 +43,14 @@ echo "curl http://127.0.0.1:2020 for Fluent Bit build information"
 kubectl --namespace logging port-forward $POD_NAME 2020:2020
 Logging: install-kibana
 NAME: kibana
-LAST DEPLOYED: Tue Oct 20 08:47:16 2020
+LAST DEPLOYED: Tue Oct 20 11:08:40 2020
 NAMESPACE: logging
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 Monitoring: install-grafana
 NAME: prometheus
-LAST DEPLOYED: Tue Oct 20 08:47:18 2020
+LAST DEPLOYED: Tue Oct 20 11:08:42 2020
 NAMESPACE: monitoring
 STATUS: deployed
 REVISION: 1
@@ -89,7 +89,7 @@ For more information on running Prometheus, visit:
 https://prometheus.io/
 Monitoring: install-grafana
 NAME: grafana
-LAST DEPLOYED: Tue Oct 20 08:47:21 2020
+LAST DEPLOYED: Tue Oct 20 11:08:45 2020
 NAMESPACE: monitoring
 STATUS: deployed
 REVISION: 1
@@ -130,7 +130,7 @@ NOTES:
 #################################################################################
 Secrets: install
 NAME: vault
-LAST DEPLOYED: Tue Oct 20 08:47:56 2020
+LAST DEPLOYED: Tue Oct 20 11:08:50 2020
 NAMESPACE: secrets
 STATUS: deployed
 REVISION: 1

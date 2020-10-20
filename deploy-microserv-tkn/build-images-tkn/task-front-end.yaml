@@ -3,10 +3,8 @@ kind: Task
 metadata:
   name: dockr-front-end
 spec:
-  resources:
-    inputs:
-    - name: front-end-resource
-      type: git
+  workspaces:
+  - name: front-end-resource
   params:
   - name: IMAGE
     description: Name (reference) of the image to build.

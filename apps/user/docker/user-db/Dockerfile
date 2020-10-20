@@ -11,7 +11,6 @@ RUN chmod a+wx /var/
 RUN ls /var/
 RUN su - mongodb && mongod --fork --logpath /var/log/mongodb.log --dbpath /data/db-users  \
     && bash /tmp/scripts/mongo_create_insert.sh \
-    && mongod --dbpath /data/db-users --shutdown \
     && chown -R mongodb /data/db-users
 
 # Make the new dir a VOLUME to persist it
