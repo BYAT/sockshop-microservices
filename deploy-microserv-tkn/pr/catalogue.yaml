@@ -10,3 +10,10 @@ spec:
       claimName: kh-pvc-2 # this PVC must already exist
   pipelineRef:
     name: catalogue-pipeline 
+  resources:
+    - name: catalogue-resource
+      resourceRef:
+        name: catalogue-resource
+    - name: catalogue-db-resource
+      resourceRef:
+        name: catalogue-db-resource

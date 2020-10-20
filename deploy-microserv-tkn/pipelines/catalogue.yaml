@@ -3,12 +3,41 @@ kind: Pipeline
 metadata:
   name: catalogue-pipeline
 spec:
+  resources: 
+    - name: catalogue-resource
+      type: git
+    - name: catalogue-db-resource
+      type: git
   workspaces:
     - name: output
   tasks:
-    - name: catalogue-pipe
-      taskRef:               # will start execution immediately
+    - name:  dockr-catalogue-db-pip # task 1 build & push docker db 
+      taskRef:              
+        name: dockr-catalogue-db
+      params:
+      - name: IMAGE
+        value: "bashayr/catalogue-db"
+      resources:
+        inputs:
+        - name: catalogue-db-resource
+          resource: catalogue-db-resource
+    - name: dockr-catalogue-pip # task 2: build & push catalogue image
+      taskRef:              
+        name: dockr-catalogue
+      runAfter:
+        - dockr-catalogue-db-pip
+      params:
+      - name: IMAGE
+        value: "bashayr/catalogue"
+      resources:
+        inputs:
+        - name: catalogue-resource
+          resource: catalogue-resource
+    - name: catalogue-pipe     # task 3: deploy catalogue service
+      taskRef:               
         name: catalogue-dep-task
+      runAfter:
+        - dockr-catalogue-pip
       workspaces:
         - name: output
           workspace: output

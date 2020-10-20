@@ -5,7 +5,20 @@ metadata:
 spec:
   workspaces:
     - name: output
+  resources: 
+    - name: order-resource
+      type: git
   tasks:
+    - name: dockr-order-pip
+      taskRef:
+        name: dockr-order
+      params:
+      - name: IMAGE
+        value: "bashayr/order"
+      resources:
+        inputs:
+        - name: order-resource
+          resource: order-resource
     - name: orders-pipe
       taskRef:               # will start execution immediately
         name: orders-dep-task

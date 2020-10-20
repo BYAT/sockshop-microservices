@@ -18,6 +18,14 @@ carts-with-docker:
 	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-carts.yaml -f ./build-images-tkn/task-carts.yaml  -f tasks/carts.yaml  -f tasks/carts.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  -n test
 delete-carts-with-docker:
 	kubectl delete -f ./build-images-tkn/task-carts.yaml  -f tasks/carts.yaml  -f tasks/carts.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  -n test
+catalogue-with-docker:
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-catalogue-db.yaml -f resources/resource-catalogue.yaml -f ./build-images-tkn/task-catalogue-db.yaml -f ./build-images-tkn/task-catalogue.yaml -f tasks/catalogue.yaml -f pipelines/catalogue.yaml -f pr/catalogue.yaml -n test 
+delete-catalogue-with-docker:
+	kubectl delete -f ./build-images-tkn/task-catalogue.yaml -f tasks/catalogue.yaml -f pipelines/catalogue.yaml -f pr/catalogue.yaml -n test
+order--with-docker:
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-order.yaml -f ./build-images-tkn/task-order.yaml -f tasks/orders.yaml -f pipelines/orders.yaml -f  pr/orders.yaml -n test
+delete-order--with-docker:
+	kubectl delete -f ./build-images-tkn/task-order.yaml -f tasks/orders.yaml -f pipelines/orders.yaml -f  pr/orders.yaml -n test
 get:
 	kubectl get all -n test
 apply-queue-master:
