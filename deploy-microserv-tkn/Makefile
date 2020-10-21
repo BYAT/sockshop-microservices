@@ -1,6 +1,6 @@
 apply:
 	kubectl apply -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml  -f tasks/.  -f pipelines/. -f pr/carts.yaml -f pr/catalogue.yaml -f pr/front-pipelinerun.yaml -f pr/orders.yaml -f pr/payment.yaml -f pr/queue-master.yaml -f pr/shipping.yaml -f pr/user.yaml -n test
-apply-all-with-docker: carts-with-docker catalogue-with-docker order--with-docker user-with-docker shipping-with-docker payment-with-docker queue-master-with-docker
+apply-all-with-docker: front-end-with-docker carts-with-docker catalogue-with-docker order--with-docker shipping-with-docker payment-with-docker queue-master-with-docker
 delete:
 	kubectl delete -f tasks/. -f pipelines/. -f pr/. -f services/. -f resources/. -n test
 list:
