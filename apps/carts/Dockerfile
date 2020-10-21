@@ -12,7 +12,7 @@ WORKDIR /
 
 COPY --from=build /tmp/target/carts.jar /carts.jar
 run chmod a+rx ./carts.jar
-USER ${SERVICE_USER}
+
 
 ARG BUILD_DATE
 ARG BUILD_VERSION
