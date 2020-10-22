@@ -1,6 +1,7 @@
 apply:
 	kubectl apply -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml  -f tasks/.  -f pipelines/. -f pr/carts.yaml -f pr/catalogue.yaml -f pr/front-pipelinerun.yaml -f pr/orders.yaml -f pr/payment.yaml -f pr/queue-master.yaml -f pr/shipping.yaml -f pr/user.yaml -n test
 apply-all-with-docker: front-end-with-docker carts-with-docker catalogue-with-docker order--with-docker shipping-with-docker payment-with-docker queue-master-with-docker
+delete-all-with-docker: delete-queue-master-with-docker delete-payment-with-docker delete-shipping-with-docker delete-user-with-docker delete-carts-with-docker delete-catalogue-with-docker delete-order--with-docker delete-front-end-with-docker
 delete:
 	kubectl delete -f tasks/. -f pipelines/. -f pr/. -f services/. -f resources/. -n test
 list:
@@ -18,7 +19,7 @@ delete-front-end:
 carts-with-docker:
 	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-carts.yaml -f ./build-images-tkn/task-carts.yaml  -f tasks/carts.yaml  -f tasks/carts.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  -n test
 delete-carts-with-docker:
-	kubectl delete -f ./build-images-tkn/task-carts.yaml  -f tasks/carts.yaml  -f tasks/carts.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  -n test
+	kubectl delete -f ./build-images-tkn/task-carts.yaml  -f tasks/carts.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  -n test
 catalogue-with-docker:
 	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-catalogue-db.yaml -f resources/resource-catalogue.yaml -f ./build-images-tkn/task-catalogue-db.yaml -f ./build-images-tkn/task-catalogue.yaml -f tasks/catalogue.yaml -f pipelines/catalogue.yaml -f pr/catalogue.yaml -n test 
 delete-catalogue-with-docker:
