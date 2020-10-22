@@ -541,7 +541,7 @@ spec:
     spec:
       containers:
       - name: user-db
-        image: weaveworksdemos/user-db:0.4.0
+        image: bashayr/user-db
         ports:
         - name: mongo
           containerPort: 27017
@@ -587,7 +587,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: weaveworksdemos/user:0.4.7
+        image: bashayr/user
         ports:
         - containerPort: 80
         env:
