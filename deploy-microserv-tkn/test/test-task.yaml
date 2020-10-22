@@ -1,0 +1,30 @@
+apiVersion: tekton.dev/v1beta1
+kind: ClusterTask
+metadata:
+  name: test-task
+  serviceAccountName: bashayr-docker-hub
+spec:
+  workspaces:
+    - name: output
+  steps: 
+    - name: test-path
+      image: ubuntu  # contains bash
+      script: |
+        #!/usr/bin/env bash
+        pwd
+        ls -gAhF
+        echo "--------"
+        ls -gAhF output/
+        cd deploy-microserv-tkn/test
+    - name: run-docker-test
+      image: bashayr/e2e-test
+      command: ["make"]
+      args:
+        - "build"
+        - "init"
+        - "install"
+        - "npm"
+        - "test"
+        - "itest"
+        - "upgrade"
+

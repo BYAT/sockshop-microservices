@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1 
+kind: Pipeline
+metadata:
+  name: test-pipeline
+spec:
+  workspaces:
+    - name: output
+  tasks:
+    - name: test-pipe
+      taskRef:               # will start execution immediately
+        name: test-task
+      workspaces:
+        - name: output
+          workspace: output
