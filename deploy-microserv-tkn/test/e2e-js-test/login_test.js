@@ -2,7 +2,6 @@
   'use strict';
 
   require("./config");
-
   casper.test.begin("User logs in", 3, function suite(test) {
     casper.start("http://157.175.44.192", function() {
       test.assertNotVisible("#login-modal", "user does not see the login dialogue");

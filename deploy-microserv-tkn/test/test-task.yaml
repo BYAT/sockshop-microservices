@@ -20,9 +20,7 @@ spec:
         cd user-resource/deploy-microserv-tkn/test/e2e-js-test/
     - name: run-docker-test
       image: bashayr/e2e-js-test
-      script: |
-        #!/usr/bin/env sh 
-        cd user-resource/deploy-microserv-tkn/test/e2e-js-test/
-        make build
-        
-
+      command: ["npm"]
+      args:
+        - "test"
+        - "user-resource/deploy-microserv-tkn/test/e2e-js-test/login_test.js"

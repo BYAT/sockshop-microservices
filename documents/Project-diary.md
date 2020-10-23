@@ -121,7 +121,6 @@ Day 7:
 
   - push docker images locally
   - build and push user docker images using tekton cicd tool in kubernetes cluster 
-  - deploy user in kubernetes cluster using tekton
 
   B.Q-master
 
@@ -154,5 +153,13 @@ Day 11:
   - try to pass tasks from one namespace to another (from test to prod)
  
 Day 12:
--
-
+  - deploy user in kubernetes cluster using tekton
+    i. the user build image is working with deletion of shutdown line from Dockerfile 
+  - test first attempt
+    i. create task p and pr 
+Day 13:
+  - test 2nd attempt
+    i. fix test js file 
+    ii. rebuild docker image (e2e-js-test) and push it locally(without using tekton task)
+Day 14:
+  - 
