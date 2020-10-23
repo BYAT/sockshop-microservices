@@ -4,7 +4,7 @@
   require("./config");
 
   casper.test.begin("User logs in", 3, function suite(test) {
-    casper.start("http://157.175.44.192/", function() {
+    casper.start("http://157.175.44.192", function() {
       test.assertNotVisible("#login-modal", "user does not see the login dialogue");
 
       this.clickLabel("Login");
@@ -12,7 +12,7 @@
         test.assertVisible("#login-modal", "user is presented with the login dialogue");
         this.fill("#login-modal form", {
           "username": "Eve_Berger",
-          "password": "duis"
+          "password": "eve"
         }, false);
       }, function() {
         test.fail("login dialogue never showed up");
@@ -21,7 +21,7 @@
 
     casper.then(function() {
       this.click("#login-modal form button.btn.btn-primary");
-      this.waitForText("Logged in as Eve_Berger duis", function() {
+      this.waitForText("Logged in as Eve Berger", function() {
         test.pass("user is logged in");
       }, function() {
         test.fail("user login failed");
