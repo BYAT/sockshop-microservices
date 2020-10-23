@@ -4,9 +4,9 @@ metadata:
   name: test-pipelinerun
 spec:
   serviceAccountName: bashayr-docker-hub
-  workspaces:
-  - name: output # must match workspace name in the Task
-    persistentVolumeClaim:
-      claimName: kh-pvc-2 # this PVC must already exist
   pipelineRef:
-    name: test-pipeline 
+    name: test-pipeline
+  resources:
+    - name: user-resource
+      resourceRef:
+        name: user-resource 

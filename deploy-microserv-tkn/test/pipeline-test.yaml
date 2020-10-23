@@ -3,12 +3,14 @@ kind: Pipeline
 metadata:
   name: test-pipeline
 spec:
-  workspaces:
-    - name: output
+  resources: 
+    - name: user-resource
+      type: git
   tasks:
     - name: test-pipe
       taskRef:               # will start execution immediately
         name: test-task
-      workspaces:
-        - name: output
-          workspace: output
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
