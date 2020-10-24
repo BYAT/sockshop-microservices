@@ -152,14 +152,29 @@ Day 11:
 
   - try to pass tasks from one namespace to another (from test to prod)
  
+
 Day 12:
+
   - deploy user in kubernetes cluster using tekton
     i. the user build image is working with deletion of shutdown line from Dockerfile 
   - test first attempt
     i. create task p and pr 
+
 Day 13:
+
   - test 2nd attempt
-    i. fix test js file 
+
+    i.  fix test js file 
     ii. rebuild docker image (e2e-js-test) and push it locally(without using tekton task)
+    iii.microservices test passed successfully 
+
 Day 14:
+
+  - 2nd attempt of passing services from one namespace to another
+    i.  successfully fix Forbidden issue (making tasks work on defual and services on namespaces)
+    ii. successfully passing front-end task from one namespace to another (from test to prod)
+
+  - Start working on monitoring dirctory (it works but there is no actual data)
+
+Day 15:
   - 
