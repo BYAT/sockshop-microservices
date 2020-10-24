@@ -4,8 +4,12 @@ metadata:
   name: front-end-dep-task
   serviceAccountName: bashayr-docker-hub
 spec:
-  workspaces:
-    - name: output
+  params:
+  - name: NAMESPACE
+  resources:
+    inputs:
+    - name: user-resource
+      type: git
   steps: 
     - name: try 
       image: ubuntu  # contains bash
@@ -14,17 +18,19 @@ spec:
         pwd
         ls -gAhF
         echo "--------"
-        ls -gAhF output/
+        ls -gAhF user-resource/
     - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "output/deploy-microserv-tkn/services/rabbitmq-svc.yaml"
+        - "user-resource/deploy-microserv-tkn/services/rabbitmq-svc.yaml"
         - "-f"
-        - "output/deploy-microserv-tkn/services/rabbitmq-dep.yaml"
+        - "user-resource/deploy-microserv-tkn/services/rabbitmq-dep.yaml"
         - "-f"
-        - "output/deploy-microserv-tkn/services/front-end-svc.yaml" 
+        - "user-resource/deploy-microserv-tkn/services/front-end-svc.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/front-end-dep.yaml"
+        - "user-resource/deploy-microserv-tkn/services/front-end-dep.yaml"
+        - "-n"
+        - "$(params.NAMESPACE)"

@@ -11,7 +11,9 @@ spec:
   pipelineRef:
     name: front-end-pipeline 
   resources:
+    - name: user-resource
+      resourceRef:
+        name: user-resource
     - name: front-end-resource
       resourceRef:
         name: front-end-resource
-

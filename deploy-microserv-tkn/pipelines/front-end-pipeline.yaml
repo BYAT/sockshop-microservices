@@ -6,8 +6,8 @@ spec:
   resources:
     - name: front-end-resource
       type: git
-  workspaces:
-    - name: output
+    - name: user-resource
+      type: git
   tasks:
     - name: dockr-front-end-pip
       taskRef:               # will start execution immediately
@@ -20,11 +20,26 @@ spec:
         - name: front-end-resource
           resource: front-end-resource
     - name: front-pipe
-      taskRef:               # will start execution immediately
+      taskRef:               #Task 2
         name: front-end-dep-task
-      runAfter: 
+      runAfter:
         - dockr-front-end-pip
-      workspaces:
-        - name: output
-          workspace: output
-
+      params:
+      - name: NAMESPACE
+        value: "test"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+    - name: front-pipe-prod
+      taskRef:               # Task 3
+        name: front-end-dep-task
+      runAfter:
+        - front-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
