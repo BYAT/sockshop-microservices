@@ -1,6 +1,12 @@
 (function (){
   'use strict';
+//var shell = require('shelljs');
+//var ls = shell.echo("Hello")
 
+//consol.log(ls)
+//var casper = require("casper").create();
+
+casper.echo(pwd);
   require("./config");
   casper.test.begin("User logs in", 3, function suite(test) {
     casper.start("http://157.175.44.192", function() {
