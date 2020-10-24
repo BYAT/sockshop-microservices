@@ -5,11 +5,11 @@
 
 //consol.log(ls)
 //var casper = require("casper").create();
-
-casper.echo(pwd);
+var ip = "http://157.175.44.192/"
+casper.echo("http://$(curl -sL http://checkip.amazonaws.com)/");
   require("./config");
   casper.test.begin("User logs in", 3, function suite(test) {
-    casper.start("http://157.175.44.192", function() {
+    casper.start(ip, function() {
       test.assertNotVisible("#login-modal", "user does not see the login dialogue");
 
       this.clickLabel("Login");

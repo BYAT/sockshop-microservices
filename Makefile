@@ -152,3 +152,7 @@ delete-logging:
 	helm delete fluent-bit -n logging | tee -a output.log 2>/dev/null | true
 	echo "Logging: delete-elasticsearch" | tee -a output.log
 	helm delete kibana elastic/kibana -n logging | tee -a output.log 2>/dev/null | true
+monitoring:
+	kubectl apply -f ./monitoring/monitoring-ns.yaml -f ./monitoring/prometheus-sa.yml -f ./monitoring/prometheus-cr.yml -f ./monitoring/prometheus-crb.yml -f ./monitoring/prometheus-configmap.yaml -f ./monitoring/prometheus-dep.yaml -f ./monitoring/prometheus-svc.yaml -f ./monitoring/prometheus-exporter-disk-usage-ds.yaml -f ./monitoring/prometheus-exporter-kube-state-dep.yaml -f ./monitoring/prometheus-exporter-kube-state-svc.yaml -f ./monitoring/grafana-dep.yaml -f ./monitoring/grafana-configmap.yaml -f ./monitoring/grafana-svc.yaml -f ./monitoring/grafana-import-dash-batch.yaml -f ./monitoring/prometheus-alertrules.yaml
+delete-monitoring:
+	kubectl delete -f ./monitoring/monitoring-ns.yaml -f ./monitoring/prometheus-sa.yml -f ./monitoring/prometheus-cr.yml -f ./monitoring/prometheus-crb.yml -f ./monitoring/prometheus-configmap.yaml -f ./monitoring/prometheus-dep.yaml -f ./monitoring/prometheus-svc.yaml -f ./monitoring/prometheus-exporter-disk-usage-ds.yaml -f ./monitoring/prometheus-exporter-kube-state-dep.yaml -f ./monitoring/prometheus-exporter-kube-state-svc.yaml -f ./monitoring/grafana-dep.yaml -f ./monitoring/grafana-configmap.yaml -f ./monitoring/grafana-svc.yaml -f ./monitoring/grafana-import-dash-batch.yaml -f ./monitoring/prometheus-alertrules.yaml
