@@ -4,7 +4,7 @@ metadata:
   name: tutorial-role
 rules:
 - apiGroups: ["", "extensions", "apps"]
-  resources: ["services","deployments", "deployments.apps", "replicasets", "pods","serviceaccounts", "clusterroles","secrets", "namespaces"]
+  resources: ["services","deployments", "deployments.apps", "replicasets", "pods","serviceaccounts", "clusterroles","rolebindings", "secrets", "namespaces"]
   verbs: ["*"]
 ---
 kind: RoleBinding
