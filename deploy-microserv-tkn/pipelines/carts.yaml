@@ -9,8 +9,8 @@ spec:
   workspaces:
     - name: output
   tasks:
-    - name: dockr-carts-pip
-      taskRef:               # will start execution immediately
+    - name: dockr-carts-pip # task 1
+      taskRef:               
         name: dockr-carts
       params:
       - name: IMAGE
@@ -19,11 +19,52 @@ spec:
         inputs:
         - name: carts-resource
           resource: carts-resource
+#---------------------dep-----------------------------
     - name: carts-pipe
-      taskRef:               # will start execution immediately
+      taskRef:               
         name: carts-dep-task
       runAfter:
         - dockr-carts-pip
       workspaces:
         - name: output
           workspace: output
+      params:
+      - name: NAMESPACE
+        value: "test"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#----------------------wait----------------------------
+    - name: waiting-carts-pipe  # task 3: waiting task
+      taskRef:            
+        name: waiting-task 
+      runAfter:
+        - carts-pipe
+      params:
+      - name: NAMESPACE
+        value: "test"
+#----------------------test----------------------------
+    - name: test-carts-pipe  # task 4: test task
+      taskRef:
+        name: test-task
+      runAfter:
+        - waiting-carts-pipe
+      resources:
+        inputs:
+        - name: test-resource
+          resource: test-resource
+#-----------------------prod---------------------------
+    - name: carts-pipe-prod     # Task 5
+      taskRef:               
+        name: carts-dep-task
+      runAfter:
+        - test-carts-pipe 
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+

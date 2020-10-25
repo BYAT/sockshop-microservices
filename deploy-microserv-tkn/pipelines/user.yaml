@@ -3,12 +3,12 @@ kind: Pipeline
 metadata:
   name: user-pipeline
 spec:
-  workspaces:
-    - name: output
   resources: 
     - name: user-resource
       type: git
     - name: user-db-resource
+      type: git
+    - name: test-resource
       type: git
   tasks:
     - name: dockr-user-db-pip # task 1: build and push user db image
@@ -21,6 +21,7 @@ spec:
         inputs:
         - name: user-db-resource
           resource: user-db-resource
+#---------------------docker db-----------------------------
     - name: dockr-user-pip # task 2: build and push user image
       taskRef:      
         name: dockr-user
@@ -33,11 +34,52 @@ spec:
         inputs:
         - name: user-resource
           resource: user-resource
+#---------------------dep db-----------------------------
     - name: user-pipe   # task 3:
       taskRef:          
         name: user-dep-task
       runAfter:
         - dockr-user-pip
-      workspaces:
-        - name: output
-          workspace: output
+      params:
+      - name: NAMESPACE
+        value: "test"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#----------------------wait----------------------------
+    - name: waiting-user-pipe  # task 3: waiting task
+      taskRef:            
+        name: waiting-task 
+      runAfter:
+        - user-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#----------------------test----------------------------
+    - name: test-user-pipe  # task 4: test task
+      taskRef:
+        name: test-task
+      runAfter:
+        - waiting-user-pipe
+      resources:
+        inputs:
+        - name: test-resource
+          resource: test-resource
+#-----------------------prod---------------------------
+    - name: user-pipe-prod     # Task 5
+      taskRef:               
+        name: user-dep-task
+      runAfter:
+        - test-user-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource

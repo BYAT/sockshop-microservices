@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: waiting-task-single-label
+  serviceAccountName: bashayr-docker-hub
+spec:
+  params:
+  - name: NAMESPACE
+  - name: LABEL
+  steps:
+    - name: waiting-carts
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=$(params.LABEL)"
+        - "-n"
+        - "$(params.NAMESPACE)"

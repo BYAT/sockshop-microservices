@@ -11,7 +11,7 @@ spec:
     - name: user-resource
       type: git
   steps: 
-    - name: run-kubectl
+    - name: waiting-front-end-rabbitmq
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
@@ -19,5 +19,19 @@ spec:
         - "--for=condition=Ready"
         - "pods"
         - "--all"
+        -  "-l" 
+        - "name=rabbitmq"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-front-end
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=front-end"
         - "-n"
         - "$(params.NAMESPACE)"

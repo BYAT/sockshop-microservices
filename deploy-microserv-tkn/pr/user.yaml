@@ -16,4 +16,7 @@ spec:
         name: user-resource
     - name: user-db-resource
       resourceRef:
-        name: user-db-resource 
+        name: user-db-resource
+    - name: test-resource
+      resourceRef:
+        name: test-resource 
