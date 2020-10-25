@@ -15,5 +15,9 @@ RUN curl -Ls https://github.com/dustinblackman/phantomized/releases/download/2.1
   curl -k -Ls https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 | tar -jxf - &&\
   cp phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs &&\
   rm -rf /tmp/*
+WORKDIR /usr/src/app
 
-
+COPY . /usr/src/app
+run npm i casperjs
+# Start the app
+CMD ["/usr/local/bin/casperjs", "test", "cart_test.js", "catalogue_test.js","checkout_test.js", "homepage_test.js", "login_test.js"]

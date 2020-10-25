@@ -8,18 +8,25 @@ spec:
     inputs:
     - name: test-resource
       type: git
-      targetPath: test-resource/deploy-microserv-tkn/test/e2e-js-test/
   steps: 
     - name: test-path
-      workingDir: test-resource/deploy-microserv-tkn/test/e2e-js-test/
       image: ubuntu  # contains bash
+      workingDir: /workspace/test-resource/deploy-microserv-tkn/test/e2e-js-test
       script: |
         #!/usr/bin/env bash
         pwd
+        echo "-------------ls  -gAhF----------------------------------------------------"
+        ls  -gAhF
+        echo "-------------ls -gAhF test-resource/deploy-microserv-tkn/test/e2e-js-test/---------------"
+        ls -gAhF test-resource/deploy-microserv-tkn/test/e2e-js-test
+        cd test-resource/deploy-microserv-tkn/
+        echo "-------------pwd"
+        pwd
         echo "hi" 
     - name: run-docker-test
-      image: bashayr/e2e-js-test
-      workingDir: test-resource/deploy-microserv-tkn/test/e2e-js-test/
-      command: ["node"]
+      image: bashayr/e2e-try:v1
+      workingDir: /workspace/test-resource/deploy-microserv-tkn/test/e2e-js-test
+      command: ["casperjs"]
       args:
+        - "test"
         - "login_test.js"
