@@ -17,7 +17,7 @@ spec:
       args:
         - "wait" 
         - "--for=condition=Ready"
-        - " pods"
+        - "pods"
         - "--all"
         - "-n"
         - "$(params.NAMESPACE)"

@@ -17,3 +17,6 @@ spec:
     - name: front-end-resource
       resourceRef:
         name: front-end-resource
+    - name: test-resource
+      resourceRef:
+        name: test-resource

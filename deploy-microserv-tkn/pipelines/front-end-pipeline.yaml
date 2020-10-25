@@ -8,6 +8,8 @@ spec:
       type: git
     - name: user-resource
       type: git
+    - name: test-resource
+      type: git
   tasks:
     - name: dockr-front-end-pip
       taskRef:               # will start execution immediately
@@ -19,6 +21,7 @@ spec:
         inputs:
         - name: front-end-resource
           resource: front-end-resource
+#---------------------dep-----------------------------
     - name: front-pipe
       taskRef:               #Task 2
         name: front-end-dep-task
@@ -31,6 +34,7 @@ spec:
         inputs:
         - name: user-resource
           resource: user-resource
+#----------------------wait----------------------------
     - name: waiting-front-pipe  # task 3: waiting task
       taskRef:            
         name: waiting-task 
@@ -38,20 +42,27 @@ spec:
         - front-pipe
       params:
       - name: NAMESPACE
-        value: "test"
-#    - name: test-front-pipe  # task 4: test task
-#      taskRef:
-#        name: test-task
-#      runAfter:
-#        - waiting-front-pipe
-#      params:
-#      - name: NAMESPACE
-#        value: "test"
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#----------------------test----------------------------
+    - name: test-front-pipe  # task 4: test task
+      taskRef:
+        name: test-task
+      runAfter:
+        - waiting-front-pipe
+      resources:
+        inputs:
+        - name: test-resource
+          resource: test-resource
+#-----------------------prod---------------------------
     - name: front-pipe-prod     # Task 5
       taskRef:               
         name: front-end-dep-task
       runAfter:
-        - waiting-front-pipe # later on i need to change the task with task 4
+        - test-front-pipe # later on i need to change the task with task 4
       params:
       - name: NAMESPACE
         value: "prod"
