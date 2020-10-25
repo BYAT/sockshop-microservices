@@ -25,9 +25,9 @@ catalogue-with-docker:
 delete-catalogue-with-docker:
 	kubectl delete -f ./build-images-tkn/task-catalogue.yaml -f tasks/catalogue.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/catalogue.yaml -f pr/catalogue.yaml 
 order--with-docker:
-	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-order.yaml -f ./build-images-tkn/task-order.yaml -f tasks/orders.yaml -f pipelines/orders.yaml -f  pr/orders.yaml 
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-order.yaml -f resources/resource-test.yaml -f resources/resource-user.yaml -f ./build-images-tkn/task-order.yaml -f tasks/orders.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/orders.yaml -f  pr/orders.yaml 
 delete-order--with-docker:
-	kubectl delete -f ./build-images-tkn/task-order.yaml -f tasks/orders.yaml -f pipelines/orders.yaml -f  pr/orders.yaml 
+	kubectl delete -f ./build-images-tkn/task-order.yaml -f tasks/orders.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/orders.yaml -f  pr/orders.yaml 
 delete-user-with-docker:
 	kubectl delete -f ./build-images-tkn/task-user-db.yaml  -f tasks/waiting.yaml -f test/test-task.yaml -f ./build-images-tkn/task-user.yaml -f tasks/user.yaml -f pipelines/user.yaml -f pr/user.yaml 
 user-with-docker:
