@@ -6,8 +6,10 @@ spec:
   resources:
     - name: carts-resource
       type: git
-  workspaces:
-    - name: output
+    - name: user-resource
+      type: git
+    - name: test-resource
+      type: git
   tasks:
     - name: dockr-carts-pip # task 1
       taskRef:               
@@ -25,9 +27,6 @@ spec:
         name: carts-dep-task
       runAfter:
         - dockr-carts-pip
-      workspaces:
-        - name: output
-          workspace: output
       params:
       - name: NAMESPACE
         value: "test"
@@ -43,7 +42,11 @@ spec:
         - carts-pipe
       params:
       - name: NAMESPACE
-        value: "test"
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
 #----------------------test----------------------------
     - name: test-carts-pipe  # task 4: test task
       taskRef:
@@ -55,7 +58,7 @@ spec:
         - name: test-resource
           resource: test-resource
 #-----------------------prod---------------------------
-    - name: carts-pipe-prod     # Task 5
+    - name: prod-carts-pipe     # Task 5
       taskRef:               
         name: carts-dep-task
       runAfter:

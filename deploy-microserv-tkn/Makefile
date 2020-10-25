@@ -17,11 +17,11 @@ delete-front-end-with-docker:
 delete-front-end:
 	 kubectl delete -f resources/resource-front-end.yaml -f tasks/front-end-task.yaml -f pipelines/front-end-pipeline.yaml -f pr/front-pipelinerun.yaml -f services/front-end-dep.yaml -f services/front-end-svc.yaml 
 carts-with-docker:
-	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-carts.yaml -f ./build-images-tkn/task-carts.yaml  -f tasks/carts.yaml  -f tasks/carts.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-carts.yaml -f resources/resource-user.yaml  -f resources/resource-test.yaml -f ./build-images-tkn/task-carts.yaml -f tasks/waiting.yaml -f test/test-task.yaml  -f tasks/carts.yaml  -f tasks/carts.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  
 delete-carts-with-docker:
-	kubectl delete -f ./build-images-tkn/task-carts.yaml  -f tasks/carts.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  
+	kubectl delete -f ./build-images-tkn/task-carts.yaml  -f tasks/carts.yaml  -f tasks/waiting.yaml -f test/test-task.yaml  -f pipelines/carts.yaml  -f pr/carts.yaml  
 catalogue-with-docker:
-	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-catalogue-db.yaml -f resources/resource-catalogue.yaml  -f resources/resource-test.yaml -f ./build-images-tkn/task-catalogue-db.yaml -f ./build-images-tkn/task-catalogue.yaml -f tasks/catalogue.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/catalogue.yaml -f pr/catalogue.yaml  
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-catalogue-db.yaml -f resources/resource-catalogue.yaml  -f resources/resource-test.yaml -f resources/resource-user.yaml -f ./build-images-tkn/task-catalogue-db.yaml -f ./build-images-tkn/task-catalogue.yaml -f tasks/catalogue.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/catalogue.yaml -f pr/catalogue.yaml  
 delete-catalogue-with-docker:
 	kubectl delete -f ./build-images-tkn/task-catalogue.yaml -f tasks/catalogue.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/catalogue.yaml -f pr/catalogue.yaml 
 order--with-docker:

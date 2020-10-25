@@ -14,3 +14,10 @@ spec:
     - name: carts-resource
       resourceRef:
         name: carts-resource
+    - name: user-resource
+      resourceRef:
+        name: user-resource
+    - name: test-resource
+      resourceRef:
+        name: test-resource
+
