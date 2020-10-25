@@ -58,7 +58,7 @@ spec:
         - name: test-resource
           resource: test-resource
 #-----------------------prod---------------------------
-    - name: catalogue-prod-pipe     # task 3: deploy catalogue service
+    - name: ordes-prod-pipe     # task 3: deploy catalogue service
       taskRef:
         name: orders-dep-task
       runAfter:

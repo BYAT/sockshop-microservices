@@ -13,4 +13,10 @@ spec:
   resources:
     - name: payment-resource
       resourceRef:
-        name: payment-resource 
+        name: payment-resource
+    - name: user-resource
+      resourceRef:
+        name: user-resource
+    - name: test-resource
+      resourceRef:
+        name: test-resource 
