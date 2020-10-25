@@ -31,11 +31,27 @@ spec:
         inputs:
         - name: user-resource
           resource: user-resource
-    - name: front-pipe-prod
-      taskRef:               # Task 3
-        name: front-end-dep-task
+    - name: waiting-front-pipe  # task 3: waiting task
+      taskRef:            
+        name: waiting-task 
       runAfter:
         - front-pipe
+      params:
+      - name: NAMESPACE
+        value: "test"
+#    - name: test-front-pipe  # task 4: test task
+#      taskRef:
+#        name: test-task
+#      runAfter:
+#        - waiting-front-pipe
+#      params:
+#      - name: NAMESPACE
+#        value: "test"
+    - name: front-pipe-prod     # Task 5
+      taskRef:               
+        name: front-end-dep-task
+      runAfter:
+        - waiting-front-pipe # later on i need to change the task with task 4
       params:
       - name: NAMESPACE
         value: "prod"

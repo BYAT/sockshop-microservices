@@ -158,4 +158,19 @@ delete-monitoring:
 	kubectl delete -f ./monitoring/monitoring-ns.yaml -f ./monitoring/prometheus-sa.yml -f ./monitoring/prometheus-cr.yml -f ./monitoring/prometheus-crb.yml -f ./monitoring/prometheus-configmap.yaml -f ./monitoring/prometheus-dep.yaml -f ./monitoring/prometheus-svc.yaml -f ./monitoring/prometheus-exporter-disk-usage-ds.yaml -f ./monitoring/prometheus-exporter-kube-state-dep.yaml -f ./monitoring/prometheus-exporter-kube-state-svc.yaml -f ./monitoring/grafana-dep.yaml -f ./monitoring/grafana-configmap.yaml -f ./monitoring/grafana-svc.yaml -f ./monitoring/grafana-import-dash-batch.yaml -f ./monitoring/prometheus-alertrules.yaml
 
 microservice:
-	cd sockshop-microservices/deploy-microserv-tkn && make clone && tkn tr logs -f -n test && make apply-all-with-docker && tkn pr logs payment-pipelinerun  -f -n test && 
+	cd sockshop-microservices/deploy-microserv-tkn && make clone && tkn tr logs -f && make apply-all-with-docker && tkn pr logs payment-pipelinerun  -f && tkn pr logs front-pipelinerun -f && tkn pr logs orders-pipelinerun -f &&  tkn pr logs queue-master-pipelinerun -f && tkn pr logs shipping-pipelinerun -f && tkn pr logs user-pipelinerun -f && tkn pr logs catalogue-pipelinerun -f && tkn pr logs carts-pipelinerun -f 
+
+vault:
+		docker network create vault-network 
+	docker container run --name vault \
+		-it -d \
+		--network vault-network \
+		--cap-add=IPC_LOCK \
+		-e VAULT_DEV_ROOT_TOKEN_ID=project3 \
+		-e VAULT_ADDR=http://localhost:30200 \
+		-e VAULT_TOKEN=projecte \
+		-e VAULT_FORMAT=json \
+		-w /work \
+		-v $$(pwd):/work \
+		-p 30200:30200 \
+		vault && vault login project3 && export VAULT_ADDR=http://localhost:30200/
