@@ -6,21 +6,20 @@ metadata:
 spec:
   resources:
     inputs:
-    - name: user-resource
+    - name: test-resource
       type: git
+      targetPath: test-resource/deploy-microserv-tkn/test/e2e-js-test/
   steps: 
     - name: test-path
+      workingDir: test-resource/deploy-microserv-tkn/test/e2e-js-test/
       image: ubuntu  # contains bash
       script: |
         #!/usr/bin/env bash
         pwd
-        ls -gAhF
-        echo "--------"
-        ls -gAhF user-resource/deploy-microserv-tkn/test/e2e-js-test/
-        cd user-resource/deploy-microserv-tkn/test/e2e-js-test/
+        echo "hi" 
     - name: run-docker-test
       image: bashayr/e2e-js-test
-      command: ["npm"]
+      workingDir: test-resource/deploy-microserv-tkn/test/e2e-js-test/
+      command: ["node"]
       args:
-        - "test"
-        - "user-resource/deploy-microserv-tkn/test/e2e-js-test/login_test.js"
+        - "login_test.js"

@@ -7,6 +7,6 @@ spec:
   pipelineRef:
     name: test-pipeline
   resources:
-    - name: user-resource
+    - name: test-resource
       resourceRef:
-        name: user-resource 
+        name: test-resource 

@@ -4,7 +4,7 @@ metadata:
   name: test-pipeline
 spec:
   resources: 
-    - name: user-resource
+    - name: test-resource
       type: git
   tasks:
     - name: test-pipe
@@ -12,5 +12,5 @@ spec:
         name: test-task
       resources:
         inputs:
-        - name: user-resource
-          resource: user-resource
+        - name: test-resource
+          resource: test-resource

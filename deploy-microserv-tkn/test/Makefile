@@ -1,5 +1,5 @@
 apply:
-	kubectl apply -f ./test-task.yaml -f ./pipeline-test.yaml -f ./pr.yaml -n test 
+	kubectl apply -f ../resources/resource-test.yaml -f ./test-task.yaml -f ./pipeline-test.yaml -f ./pr.yaml -n test 
 delete: 
 	kubectl delete -f ./test-task.yaml -f ./pipeline-test.yaml -f ./pr.yaml -n test
 get:
