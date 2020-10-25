@@ -8,8 +8,10 @@ spec:
       type: git
     - name: catalogue-db-resource
       type: git
-  workspaces:
-    - name: output
+    - name: user-resource
+      type: git
+    - name: test-resource
+      type: git
   tasks:
     - name:  dockr-catalogue-db-pip # task 1 build & push docker db 
       taskRef:              
@@ -21,6 +23,7 @@ spec:
         inputs:
         - name: catalogue-db-resource
           resource: catalogue-db-resource
+#---------------------docker-----------------------------
     - name: dockr-catalogue-pip # task 2: build & push catalogue image
       taskRef:              
         name: dockr-catalogue
@@ -33,11 +36,53 @@ spec:
         inputs:
         - name: catalogue-resource
           resource: catalogue-resource
+#---------------------dep-----------------------------
     - name: catalogue-pipe     # task 3: deploy catalogue service
       taskRef:               
         name: catalogue-dep-task
       runAfter:
         - dockr-catalogue-pip
-      workspaces:
-        - name: output
-          workspace: output
+      params:
+      - name: NAMESPACE
+        value: "test"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#----------------------wait----------------------------
+    - name: waiting-catalogue-pipe  # task 4: waiting task
+      taskRef:            
+        name: waiting-task 
+      runAfter:
+        - catalogue-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#----------------------test----------------------------
+    - name: test-catalogue-pipe  # task 5: test task
+      taskRef:
+        name: test-task
+      runAfter:
+        - waiting-catalogue-pipe
+      resources:
+        inputs:
+        - name: test-resource
+          resource: test-resource
+#-----------------------prod---------------------------
+    - name: catalogue-prod-pipe     # task 3: deploy catalogue service
+      taskRef:
+        name: catalogue-dep-task
+      runAfter:
+        - test-catalogue-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+

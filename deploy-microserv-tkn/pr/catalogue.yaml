@@ -17,3 +17,9 @@ spec:
     - name: catalogue-db-resource
       resourceRef:
         name: catalogue-db-resource
+    - name: user-resource
+      resourceRef:
+        name: user-resource
+    - name: test-resource
+      resourceRef:
+        name: test-resource
