@@ -13,4 +13,10 @@ spec:
   resources:
     - name: queue-master-resource
       resourceRef:
-        name: queue-master-resource 
+        name: queue-master-resource
+    - name: user-resource
+      resourceRef:
+        name: user-resource
+    - name: test-resource
+      resourceRef:
+        name: test-resource 

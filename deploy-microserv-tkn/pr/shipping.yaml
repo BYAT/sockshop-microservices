@@ -13,4 +13,10 @@ spec:
   resources:
     - name: shipping-resource
       resourceRef:
-        name: shipping-resource 
+        name: shipping-resource
+    - name: user-resource
+      resourceRef:
+        name: user-resource
+    - name: test-resource
+      resourceRef:
+        name: test-resource 

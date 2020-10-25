@@ -33,15 +33,15 @@ delete-user-with-docker:
 user-with-docker:
 	 kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-user-db.yaml -f resources/resource-user.yaml  -f resources/resource-test.yaml -f ./build-images-tkn/task-user-db.yaml -f ./build-images-tkn/task-user.yaml -f tasks/user.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/user.yaml -f pr/user.yaml  
 payment-with-docker:
-	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-payment.yaml -f ./build-images-tkn/task-payment.yaml -f  tasks/payment.yaml -f pipelines/payment.yaml -f  pr/payment.yaml  
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-user.yaml  -f resources/resource-test.yaml -f resources/resource-payment.yaml -f ./build-images-tkn/task-payment.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f  tasks/payment.yaml -f pipelines/payment.yaml -f  pr/payment.yaml  
 delete-payment-with-docker:
 	kubectl delete -f ./build-images-tkn/task-payment.yaml -f  tasks/payment.yaml -f pipelines/payment.yaml -f  pr/payment.yaml 
 shipping-with-docker:
-	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-shipping.yaml -f ./build-images-tkn/task-shipping.yaml -f  tasks/shipping.yaml -f pipelines/shipping.yaml -f pr/shipping.yaml 
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-shipping.yaml -f resources/resource-user.yaml  -f resources/resource-test.yaml -f ./build-images-tkn/task-shipping.yaml -f  tasks/shipping.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/shipping.yaml -f pr/shipping.yaml 
 delete-shipping-with-docker:
 	kubectl delete -f ./build-images-tkn/task-shipping.yaml -f  tasks/shipping.yaml -f pipelines/shipping.yaml -f pr/shipping.yaml 
 queue-master-with-docker:
-	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-queue-master.yaml -f ./build-images-tkn/task-queue-master.yaml -f  tasks/queue-master.yaml -f pipelines/queue-master.yaml -f pr/queue-master.yaml 
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-queue-master.yaml  -f resources/resource-user.yaml  -f resources/resource-test.yaml -f ./build-images-tkn/task-queue-master.yaml -f  tasks/queue-master.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/queue-master.yaml -f pr/queue-master.yaml 
 delete-queue-master-with-docker:
 	kubectl delete -f ./build-images-tkn/task-queue-master.yaml -f  tasks/queue-master.yaml -f pipelines/queue-master.yaml -f pr/queue-master.yaml 
 get:
