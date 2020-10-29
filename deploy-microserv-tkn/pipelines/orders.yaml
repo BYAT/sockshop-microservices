@@ -35,9 +35,9 @@ spec:
         - name: user-resource
           resource: user-resource
 #----------------------wait----------------------------
-    - name: waiting-ordes-pipe  # task 4: waiting task
+    - name: waiting-orders-pipe  # task 4: waiting task
       taskRef:            
-        name: waiting-ordes-task 
+        name: waiting-orders-task 
       runAfter:
         - orders-pipe
       params:
@@ -52,7 +52,7 @@ spec:
       taskRef:
         name: test-task
       runAfter:
-        - waiting-ordes-pipe
+        - waiting-orders-pipe
       resources:
         inputs:
         - name: test-resource
