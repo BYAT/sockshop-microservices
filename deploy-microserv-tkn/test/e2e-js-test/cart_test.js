@@ -30,7 +30,7 @@
         test.fail("Catalogue items did not show up");
       }, 3000)
 
-      this.waitForText("1 item(s) in cart", function() {
+      this.waitForText("2 item(s) in cart", function() {
         test.pass("cart gets updated with user selection");
       }, function() {
         test.fail("cart was not updated");
