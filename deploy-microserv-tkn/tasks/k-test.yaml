@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: waiting-task
+  name: k-test-task
   serviceAccountName: bashayr-docker-hub
 spec:
   params:
@@ -10,21 +10,17 @@ spec:
     inputs:
     - name: user-resource
       type: git
-  steps:
-    - name: sleep
-      image: ubuntu  # contains bash
-      script: |
-        #!/usr/bin/env bash
-        pwd
-    - name: waiting-for-pods-to-be-ready
+  steps: 
+    - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
-        - "wait" 
-        - "--for=condition=Ready"
-        - "pods"
-        - "--all"
-        -  "-l"
-        - "name=front-end"
+        - "apply"
+        - "-f"
+        - "user-resource/deploy-microserv-tkn/test/test-task.yaml" 
+        - "-f"
+        - "user-resource/deploy-microserv-tkn/test/pipeline-test.yaml"
+        - "-f"
+        - "user-resource/deploy-microserv-tkn/test/pr.yaml"
         - "-n"
         - "$(params.NAMESPACE)"

@@ -4,16 +4,20 @@ apply-all-with-docker: front-end-with-docker carts-with-docker catalogue-with-do
 delete-all-with-docker: delete-queue-master-with-docker delete-payment-with-docker delete-shipping-with-docker delete-user-with-docker delete-carts-with-docker delete-catalogue-with-docker delete-order--with-docker delete-front-end-with-docker
 delete:
 	kubectl delete -f tasks/. -f pipelines/. -f pr/. -f services/. -f resources/. 
+delete-services-test:
+	kubectl delete all -n test
+delete-services-prod:
+	kubectl delete all -n prod
 list:
 	tkn pr list 
 logs:
 	tkn pr logs -f 
 test-all:
-	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml  -f resources/resource-user.yaml -f resources/resource-test.yaml  -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/test-prod.yaml -f pr/test-prod.yaml
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role-test.yaml -f workspace.yaml  -f resources/resource-user.yaml -f resources/resource-test.yaml -f tasks/front-end-task.yaml -f tasks/carts.yaml -f tasks/catalogue.yaml -f tasks/orders.yaml -f tasks/user.yaml -f  tasks/payment.yaml -f  tasks/shipping.yaml -f tasks/queue-master.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/test-prod.yaml -f pr/test-prod.yaml -n test
 delete-test-all:
-	kubectl delete -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/test-prod.yaml -f pr/test-prod.yaml
+	kubectl delete -f tasks/waiting.yaml -f test/test-task.yaml  -f tasks/front-end-task.yaml -f tasks/carts.yaml -f tasks/catalogue.yaml -f tasks/orders.yaml -f tasks/user.yaml -f  tasks/payment.yaml -f  tasks/shipping.yaml -f tasks/queue-master.yaml -f pipelines/test-prod.yaml -f pr/test-prod.yaml -n test
 front-end-with-docker:
-	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-front-end.yaml -f resources/resource-user.yaml -f ./build-images-tkn/task-front-end.yaml -f tasks/front-end-task.yaml -f pipelines/front-end-pipeline.yaml -f pr/front-pipelinerun.yaml 
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role.yaml -f workspace.yaml -f resources/resource-front-end.yaml -f resources/resource-user.yaml -f ./build-images-tkn/task-front-end.yaml -f tasks/front-end-task.yaml -f pipelines/front-end-pipeline.yaml -f pr/front-pipelinerun.yaml -f ./ingress.yaml
 delete-front-end-with-docker:
 	kubectl delete -f ./build-images-tkn/task-front-end.yaml -f tasks/front-end-task.yaml -f pipelines/front-end-pipeline.yaml -f pr/front-pipelinerun.yaml 
 carts-with-docker:
