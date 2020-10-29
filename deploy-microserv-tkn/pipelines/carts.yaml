@@ -8,8 +8,8 @@ spec:
       type: git
     - name: user-resource
       type: git
-#    - name: test-resource
-#      type: git
+    - name: test-resource
+      type: git
   tasks:
     - name: dockr-carts-pip # task 1
       taskRef:               
@@ -35,39 +35,129 @@ spec:
         - name: user-resource
           resource: user-resource
 #----------------------wait----------------------------
-#    - name: waiting-carts-pipe  # task 3: waiting task
-#      taskRef:            
-#        name: waiting-task 
-#      runAfter:
-#        - carts-pipe
-#      params:
-#      - name: NAMESPACE
-#        value: "prod"
-#      resources:
-#        inputs:
-#        - name: user-resource
-#          resource: user-resource
-##----------------------test----------------------------
-#    - name: test-carts-pipe  # task 4: test task
-#      taskRef:
-#        name: test-task
-#      runAfter:
-#        - waiting-carts-pipe
-#      resources:
-#        inputs:
-#        - name: test-resource
-#          resource: test-resource
-##-----------------------prod---------------------------
-#    - name: prod-carts-pipe     # Task 5
-#      taskRef:               
-#        name: carts-dep-task
-#      runAfter:
-#        - test-carts-pipe 
-#      params:
-#      - name: NAMESPACE
-#        value: "prod"
-#      resources:
-#        inputs:
-#        - name: user-resource
-#          resource: user-resource
-#
+    - name: waiting-carts-pipe  # task 3: waiting task
+      taskRef:            
+        name: waiting-carts-task 
+      runAfter:
+        - carts-pipe
+      params:
+      - name: NAMESPACE
+        value: "test"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#----------------------test----------------------------
+    - name: test-pipe  # task 4: test task
+      taskRef:
+        name: test-task
+      runAfter:
+        - waiting-carts-pipe
+      resources:
+        inputs:
+        - name: test-resource
+          resource: test-resource
+#-----------------------prod-carts--------------------------
+    - name: prod-carts-pipe     
+      taskRef:               
+        name: carts-dep-task
+      runAfter:
+        - test-pipe 
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-catalogue---------------------------
+    - name: catalogue-prod-pipe     # deploy catalogue service
+      taskRef:
+        name: catalogue-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-front-end--------------------------
+    - name: front-pipe-prod    
+      taskRef:               
+        name: front-end-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-orders--------------------------
+    - name: ordes-prod-pipe     
+      taskRef:
+        name: orders-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-payment--------------------------
+    - name: payment-prod-pipe     # task 3: deploy payment service
+      taskRef:
+        name: payment-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-queue-master--------------------------
+    - name: queue-master-prod-pipe     
+      taskRef:
+        name: queue-master-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-shipping--------------------------
+    - name: shipping-prod-pipe     
+      taskRef:
+        name: shipping-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-user--------------------------
+    - name: user-pipe-prod     
+      taskRef:               
+        name: user-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource

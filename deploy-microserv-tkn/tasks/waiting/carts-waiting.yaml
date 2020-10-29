@@ -1,0 +1,37 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: waiting-carts-task
+  serviceAccountName: bashayr-docker-hub
+spec:
+  params:
+  - name: NAMESPACE
+  resources:
+    inputs:
+    - name: user-resource
+      type: git
+  steps:
+    - name: waiting-carts-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=carts"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-carts-db-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=carts-db"
+        - "-n"
+        - "$(params.NAMESPACE)"

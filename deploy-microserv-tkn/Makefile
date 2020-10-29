@@ -13,7 +13,7 @@ list:
 logs:
 	tkn pr logs -f 
 test-all:
-	sleep 1m && echo "8 min left" && sleep 1m && echo "7 min left" && sleep 1m && echo "6 min left" && sleep 1m && echo "5 min left" && sleep 1m && echo "4 min left" && sleep 1m && echo "3 min left" && sleep 1m && echo "2 min left" && sleep 1m && echo "1 min left" && sleep 1m && echo "sleep done" && kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role-test.yaml -f ingress.yaml -f workspace.yaml  -f resources/resource-user.yaml -f resources/resource-test.yaml -f tasks/front-end-task.yaml -f tasks/carts.yaml -f tasks/catalogue.yaml -f tasks/orders.yaml -f tasks/user.yaml -f  tasks/payment.yaml -f  tasks/shipping.yaml -f tasks/queue-master.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/test-prod.yaml -f pr/test-prod.yaml -n test
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role-test.yaml -f ingress.yaml -f workspace.yaml  -f resources/resource-user.yaml -f resources/resource-test.yaml -f tasks/front-end-task.yaml -f tasks/carts.yaml -f tasks/catalogue.yaml -f tasks/orders.yaml -f tasks/user.yaml -f  tasks/payment.yaml -f  tasks/shipping.yaml -f tasks/queue-master.yaml -f tasks/waiting.yaml -f test/test-task.yaml -f pipelines/test-prod.yaml -f pr/test-prod.yaml -n test
 delete-test-all:
 	kubectl delete -f tasks/waiting.yaml -f test/test-task.yaml  -f tasks/front-end-task.yaml -f tasks/carts.yaml -f tasks/catalogue.yaml -f tasks/orders.yaml -f tasks/user.yaml -f  tasks/payment.yaml -f  tasks/shipping.yaml -f tasks/queue-master.yaml -f pipelines/test-prod.yaml -f pr/test-prod.yaml -n test
 front-end-with-docker:

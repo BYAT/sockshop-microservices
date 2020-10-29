@@ -1,0 +1,37 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: waiting-user-task
+  serviceAccountName: bashayr-docker-hub
+spec:
+  params:
+  - name: NAMESPACE
+  resources:
+    inputs:
+    - name: user-resource
+      type: git
+  steps:
+    - name: waiting-user-db-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=user-db"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-user-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=user"
+        - "-n"
+        - "$(params.NAMESPACE)"
