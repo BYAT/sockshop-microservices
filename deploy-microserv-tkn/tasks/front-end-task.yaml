@@ -25,10 +25,6 @@ spec:
       args:
         - "apply"
         - "-f"
-        - "user-resource/deploy-microserv-tkn/services/rabbitmq-svc.yaml"
-        - "-f"
-        - "user-resource/deploy-microserv-tkn/services/rabbitmq-dep.yaml"
-        - "-f"
         - "user-resource/deploy-microserv-tkn/services/front-end-svc.yaml" 
         - "-f"
         - "user-resource/deploy-microserv-tkn/services/front-end-dep.yaml"
