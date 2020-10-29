@@ -5,7 +5,7 @@
 
 //consol.log(ls)
 //var casper = require("casper").create();
-var ip = "http://157.175.44.192/"
+var ip = "http://front-end/"
 casper.echo("http://$(curl -sL http://checkip.amazonaws.com)/");
   require("./config");
   casper.test.begin("User logs in", 3, function suite(test) {

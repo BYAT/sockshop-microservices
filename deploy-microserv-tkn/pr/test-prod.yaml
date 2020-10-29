@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: carts-pipelinerun
+  name: test-prod-pipelinerun
 spec:
   serviceAccountName: bashayr-docker-hub
   workspaces:
@@ -9,15 +9,11 @@ spec:
     persistentVolumeClaim:
       claimName: kh-pvc-2 # this PVC must already exist
   pipelineRef:
-    name: carts-pipeline 
+    name: test-prod-pipeline 
   resources:
-    - name: carts-resource
-      resourceRef:
-        name: carts-resource
     - name: user-resource
       resourceRef:
         name: user-resource
-#    - name: test-resource
-#      resourceRef:
-#        name: test-resource
-
+    - name: test-resource
+      resourceRef:
+        name: test-resource

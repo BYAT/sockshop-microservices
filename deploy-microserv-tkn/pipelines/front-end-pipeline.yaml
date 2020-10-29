@@ -8,8 +8,8 @@ spec:
       type: git
     - name: user-resource
       type: git
-    - name: test-resource
-      type: git
+#    - name: test-resource
+#      type: git
   tasks:
     - name: dockr-front-end-pip
       taskRef:               # will start execution immediately
@@ -35,38 +35,38 @@ spec:
         - name: user-resource
           resource: user-resource
 #----------------------wait----------------------------
-    - name: waiting-front-pipe  # task 3: waiting task
-      taskRef:            
-        name: waiting-task 
-      runAfter:
-        - front-pipe
-      params:
-      - name: NAMESPACE
-        value: "prod"
-      resources:
-        inputs:
-        - name: user-resource
-          resource: user-resource
-#----------------------test----------------------------
-    - name: test-front-pipe  # task 4: test task
-      taskRef:
-        name: test-task
-      runAfter:
-        - waiting-front-pipe
-      resources:
-        inputs:
-        - name: test-resource
-          resource: test-resource
-#-----------------------prod---------------------------
-    - name: front-pipe-prod     # Task 5
-      taskRef:               
-        name: front-end-dep-task
-      runAfter:
-        - test-front-pipe # later on i need to change the task with task 4
-      params:
-      - name: NAMESPACE
-        value: "prod"
-      resources:
-        inputs:
-        - name: user-resource
-          resource: user-resource
+#    - name: waiting-front-pipe  # task 3: waiting task
+#      taskRef:            
+#        name: waiting-task 
+#      runAfter:
+#        - front-pipe
+#      params:
+#      - name: NAMESPACE
+#        value: "prod"
+#      resources:
+#        inputs:
+#        - name: user-resource
+#          resource: user-resource
+##----------------------test----------------------------
+#    - name: test-front-pipe  # task 4: test task
+#      taskRef:
+#        name: test-task
+#      runAfter:
+#        - waiting-front-pipe
+#      resources:
+#        inputs:
+#        - name: test-resource
+#          resource: test-resource
+##-----------------------prod---------------------------
+#    - name: front-pipe-prod     # Task 5
+#      taskRef:               
+#        name: front-end-dep-task
+#      runAfter:
+#        - test-front-pipe # later on i need to change the task with task 4
+#      params:
+#      - name: NAMESPACE
+#        value: "prod"
+#      resources:
+#        inputs:
+#        - name: user-resource
+#          resource: user-resource

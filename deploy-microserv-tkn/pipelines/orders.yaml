@@ -8,8 +8,8 @@ spec:
       type: git
     - name: user-resource
       type: git
-    - name: test-resource
-      type: git
+#    - name: test-resource
+#      type: git
   tasks:
     - name: dockr-order-pip
       taskRef:
@@ -35,39 +35,39 @@ spec:
         - name: user-resource
           resource: user-resource
 #----------------------wait----------------------------
-    - name: waiting-ordes-pipe  # task 4: waiting task
-      taskRef:            
-        name: waiting-task 
-      runAfter:
-        - orders-pipe
-      params:
-      - name: NAMESPACE
-        value: "prod"
-      resources:
-        inputs:
-        - name: user-resource
-          resource: user-resource
-#----------------------test----------------------------
-    - name: test-ordes-pipe  # task 5: test task
-      taskRef:
-        name: test-task
-      runAfter:
-        - waiting-ordes-pipe
-      resources:
-        inputs:
-        - name: test-resource
-          resource: test-resource
-#-----------------------prod---------------------------
-    - name: ordes-prod-pipe     # task 3: deploy catalogue service
-      taskRef:
-        name: orders-dep-task
-      runAfter:
-        - test-ordes-pipe
-      params:
-      - name: NAMESPACE
-        value: "prod"
-      resources:
-        inputs:
-        - name: user-resource
-          resource: user-resource
-
+#    - name: waiting-ordes-pipe  # task 4: waiting task
+#      taskRef:            
+#        name: waiting-task 
+#      runAfter:
+#        - orders-pipe
+#      params:
+#      - name: NAMESPACE
+#        value: "prod"
+#      resources:
+#        inputs:
+#        - name: user-resource
+#          resource: user-resource
+##----------------------test----------------------------
+#    - name: test-ordes-pipe  # task 5: test task
+#      taskRef:
+#        name: test-task
+#      runAfter:
+#        - waiting-ordes-pipe
+#      resources:
+#        inputs:
+#        - name: test-resource
+#          resource: test-resource
+##-----------------------prod---------------------------
+#    - name: ordes-prod-pipe     # task 3: deploy catalogue service
+#      taskRef:
+#        name: orders-dep-task
+#      runAfter:
+#        - test-ordes-pipe
+#      params:
+#      - name: NAMESPACE
+#        value: "prod"
+#      resources:
+#        inputs:
+#        - name: user-resource
+#          resource: user-resource
+#

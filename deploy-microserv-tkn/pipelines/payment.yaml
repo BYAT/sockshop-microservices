@@ -8,8 +8,8 @@ spec:
       type: git
     - name: user-resource
       type: git
-    - name: test-resource
-      type: git
+#    - name: test-resource
+#      type: git
   tasks:
     - name: dockr-payment-pip
       taskRef:               # will start execution immediately
@@ -34,38 +34,38 @@ spec:
         - name: user-resource
           resource: user-resource
 #----------------------wait----------------------------
-    - name: waiting-payment-pipe  # task 4: waiting task
-      taskRef:            
-        name: waiting-task 
-      runAfter:
-        - payment-pipe
-      params:
-      - name: NAMESPACE
-        value: "prod"
-      resources:
-        inputs:
-        - name: user-resource
-          resource: user-resource
-#----------------------test----------------------------
-    - name: test-payment-pipe  # task 5: test task
-      taskRef:
-        name: test-task
-      runAfter:
-        - waiting-payment-pipe
-      resources:
-        inputs:
-        - name: test-resource
-          resource: test-resource
-#-----------------------prod---------------------------
-    - name: payment-prod-pipe     # task 3: deploy payment service
-      taskRef:
-        name: payment-dep-task
-      runAfter:
-        - test-payment-pipe
-      params:
-      - name: NAMESPACE
-        value: "prod"
-      resources:
-        inputs:
-        - name: user-resource
-          resource: user-resource
+#    - name: waiting-payment-pipe  # task 4: waiting task
+#      taskRef:            
+#        name: waiting-task 
+#      runAfter:
+#        - payment-pipe
+#      params:
+#      - name: NAMESPACE
+#        value: "prod"
+#      resources:
+#        inputs:
+#        - name: user-resource
+#          resource: user-resource
+##----------------------test----------------------------
+#    - name: test-payment-pipe  # task 5: test task
+#      taskRef:
+#        name: test-task
+#      runAfter:
+#        - waiting-payment-pipe
+#      resources:
+#        inputs:
+#        - name: test-resource
+#          resource: test-resource
+##-----------------------prod---------------------------
+#    - name: payment-prod-pipe     # task 3: deploy payment service
+#      taskRef:
+#        name: payment-dep-task
+#      runAfter:
+#        - test-payment-pipe
+#      params:
+#      - name: NAMESPACE
+#        value: "prod"
+#      resources:
+#        inputs:
+#        - name: user-resource
+#          resource: user-resource

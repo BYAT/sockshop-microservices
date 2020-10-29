@@ -8,8 +8,8 @@ spec:
       type: git
     - name: user-resource
       type: git
-    - name: test-resource
-      type: git
+#    - name: test-resource
+#      type: git
   tasks:
     - name: dockr-shipping-pip
       taskRef:               # task 1
@@ -34,38 +34,38 @@ spec:
         - name: user-resource
           resource: user-resource
 #----------------------wait----------------------------
-    - name: waiting-shipping-pipe  # task 4: waiting task
-      taskRef:            
-        name: waiting-task 
-      runAfter:
-        - shipping-pipe
-      params:
-      - name: NAMESPACE
-        value: "prod"
-      resources:
-        inputs:
-        - name: user-resource
-          resource: user-resource
-#----------------------test----------------------------
-    - name: test-shipping-pipe  # task 5: test task
-      taskRef:
-        name: test-task
-      runAfter:
-        - waiting-shipping-pipe
-      resources:
-        inputs:
-        - name: test-resource
-          resource: test-resource
-#-----------------------prod---------------------------
-    - name: shipping-prod-pipe     # task 3: deploy shipping service
-      taskRef:
-        name: shipping-dep-task
-      runAfter:
-        - test-shipping-pipe
-      params:
-      - name: NAMESPACE
-        value: "prod"
-      resources:
-        inputs:
-        - name: user-resource
-          resource: user-resource
+#    - name: waiting-shipping-pipe  # task 4: waiting task
+#      taskRef:            
+#        name: waiting-task 
+#      runAfter:
+#        - shipping-pipe
+#      params:
+#      - name: NAMESPACE
+#        value: "prod"
+#      resources:
+#        inputs:
+#        - name: user-resource
+#          resource: user-resource
+##----------------------test----------------------------
+#    - name: test-shipping-pipe  # task 5: test task
+#      taskRef:
+#        name: test-task
+#      runAfter:
+#        - waiting-shipping-pipe
+#      resources:
+#        inputs:
+#        - name: test-resource
+#          resource: test-resource
+##-----------------------prod---------------------------
+#    - name: shipping-prod-pipe     # task 3: deploy shipping service
+#      taskRef:
+#        name: shipping-dep-task
+#      runAfter:
+#        - test-shipping-pipe
+#      params:
+#      - name: NAMESPACE
+#        value: "prod"
+#      resources:
+#        inputs:
+#        - name: user-resource
+#          resource: user-resource

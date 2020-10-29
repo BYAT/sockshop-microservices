@@ -8,8 +8,8 @@ spec:
       type: git
     - name: user-resource
       type: git
-    - name: test-resource
-      type: git
+#    - name: test-resource
+#      type: git
   tasks:
     - name: dockr-queue-master-pip
       taskRef:               
@@ -34,38 +34,38 @@ spec:
         - name: user-resource
           resource: user-resource
 #----------------------wait----------------------------
-    - name: waiting-queue-master-pipe  # task 4: waiting task
-      taskRef:            
-        name: waiting-task 
-      runAfter:
-        - queue-master-pipe
-      params:
-      - name: NAMESPACE
-        value: "prod"
-      resources:
-        inputs:
-        - name: user-resource
-          resource: user-resource
-#----------------------test----------------------------
-    - name: test-queue-master-pipe  # task 4 : test task
-      taskRef:
-        name: test-task
-      runAfter:
-        - waiting-queue-master-pipe
-      resources:
-        inputs:
-        - name: test-resource
-          resource: test-resource
-#-----------------------prod---------------------------
-    - name: queue-master-prod-pipe     # task 5: deploy queue-master service
-      taskRef:
-        name: queue-master-dep-task
-      runAfter:
-        - test-queue-master-pipe
-      params:
-      - name: NAMESPACE
-        value: "prod"
-      resources:
-        inputs:
-        - name: user-resource
-          resource: user-resource
+#    - name: waiting-queue-master-pipe  # task 4: waiting task
+#      taskRef:            
+#        name: waiting-task 
+#      runAfter:
+#        - queue-master-pipe
+#      params:
+#      - name: NAMESPACE
+#        value: "prod"
+#      resources:
+#        inputs:
+#        - name: user-resource
+#          resource: user-resource
+##----------------------test----------------------------
+#    - name: test-queue-master-pipe  # task 4 : test task
+#      taskRef:
+#        name: test-task
+#      runAfter:
+#        - waiting-queue-master-pipe
+#      resources:
+#        inputs:
+#        - name: test-resource
+#          resource: test-resource
+##-----------------------prod---------------------------
+#    - name: queue-master-prod-pipe     # task 5: deploy queue-master service
+#      taskRef:
+#        name: queue-master-dep-task
+#      runAfter:
+#        - test-queue-master-pipe
+#      params:
+#      - name: NAMESPACE
+#        value: "prod"
+#      resources:
+#        inputs:
+#        - name: user-resource
+#          resource: user-resource
