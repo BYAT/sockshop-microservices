@@ -4,6 +4,12 @@ metadata:
   name: front-end-dep-task
   serviceAccountName: bashayr-docker-hub
 spec:
+  params:
+  - name: NAMESPACE
+  resources:
+    inputs:
+    - name: user-resource
+      type: git
   steps: 
     - name: try 
       image: ubuntu  # contains bash
@@ -12,15 +18,15 @@ spec:
         pwd
         ls -gAhF
         echo "--------"
-        ls -gAhF 
+        ls -gAhF user-resource/
     - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "$(resources.inputs.main.path)/deploy-microserv-tkn/services/front-end-svc.yaml" 
+        - "user-resource/deploy-microserv-tkn/services/front-end-svc.yaml" 
         - "-f"
-        - "$(resources.inputs.main.path)/deploy-microserv-tkn/services/front-end-dep.yaml"
-        - "-f"
-        - "$(resources.inputs.main.path)/deploy-microserv-tkn/ingress.yaml"
+        - "user-resource/deploy-microserv-tkn/services/front-end-dep.yaml"
+        - "-n"
+        - "$(params.NAMESPACE)"

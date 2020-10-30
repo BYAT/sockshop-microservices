@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: test-prod-pipelinerun
+spec:
+  serviceAccountName: bashayr-docker-hub
+  workspaces:
+  - name: output # must match workspace name in the Task
+    persistentVolumeClaim:
+      claimName: kh-pvc-2 # this PVC must already exist
+  pipelineRef:
+    name: test-prod-pipeline 
+  resources:
+    - name: user-resource
+      resourceRef:
+        name: user-resource
+    - name: test-resource
+      resourceRef:
+        name: test-resource

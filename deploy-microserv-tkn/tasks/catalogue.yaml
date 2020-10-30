@@ -4,27 +4,25 @@ metadata:
   name: catalogue-dep-task
   serviceAccountName: bashayr-docker-hub
 spec:
-  workspaces:
-    - name: output
+  params:
+  - name: NAMESPACE
+  resources:
+    inputs:
+    - name: user-resource
+      type: git
   steps: 
-    - name: try 
-      image: ubuntu  # contains bash
-      script: |
-        #!/usr/bin/env bash
-        pwd
-        ls -gAhF
-        echo "--------"
-        ls -gAhF output/
-    - name: run-kubectl
+    - name: run-catalogue-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "output/deploy-microserv-tkn/services/catalogue-db-svc.yaml" 
+        - "user-resource/deploy-microserv-tkn/services/catalogue-db-svc.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/catalogue-db-dep.yaml" 
+        - "user-resource/deploy-microserv-tkn/services/catalogue-db-dep.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/catalogue-svc.yaml" 
+        - "user-resource/deploy-microserv-tkn/services/catalogue-svc.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/catalogue-dep.yaml"
+        - "user-resource/deploy-microserv-tkn/services/catalogue-dep.yaml"
+        - "-n"
+        - "$(params.NAMESPACE)"

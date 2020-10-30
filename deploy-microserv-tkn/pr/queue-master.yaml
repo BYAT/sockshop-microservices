@@ -9,4 +9,14 @@ spec:
     persistentVolumeClaim:
       claimName: kh-pvc-2 # this PVC must already exist
   pipelineRef:
-    name: queue-master-pipeline 
+    name: queue-master-pipeline
+  resources:
+    - name: queue-master-resource
+      resourceRef:
+        name: queue-master-resource
+    - name: user-resource
+      resourceRef:
+        name: user-resource
+    - name: test-resource
+      resourceRef:
+        name: test-resource 

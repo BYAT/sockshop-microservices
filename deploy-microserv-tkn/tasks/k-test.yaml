@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: k-test-task
+  serviceAccountName: bashayr-docker-hub
+spec:
+  params:
+  - name: NAMESPACE
+  resources:
+    inputs:
+    - name: user-resource
+      type: git
+  steps: 
+    - name: run-kubectl
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "apply"
+        - "-f"
+        - "user-resource/deploy-microserv-tkn/test/test-task.yaml" 
+        - "-f"
+        - "user-resource/deploy-microserv-tkn/test/pipeline-test.yaml"
+        - "-f"
+        - "user-resource/deploy-microserv-tkn/test/pr.yaml"
+        - "-n"
+        - "$(params.NAMESPACE)"

@@ -1,0 +1,163 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: waiting-task
+  serviceAccountName: bashayr-docker-hub
+spec:
+  params:
+  - name: NAMESPACE
+  resources:
+    inputs:
+    - name: user-resource
+      type: git
+  steps:
+    - name: sleep
+      image: ubuntu  # contains bash
+      script: |
+        #!/usr/bin/env bash
+        pwd
+    - name: waiting-front-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait" 
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=front-end"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-payment-pods-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=payment"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-catalogue-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=catalogue"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-catalogue-db-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=catalogue-db"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-orders-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=orders"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-orders-db-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=orders-db"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-queue-master-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=queue-master"
+        - "-n"
+        - "$(params.NAMESPACE)"
+
+    - name: waiting-carts-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=carts"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-carts-db-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=carts-db"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-user-db-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=user-db"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-user-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=user"
+        - "-n"
+        - "$(params.NAMESPACE)"
+    - name: waiting-shipping-pod-to-be-ready
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "wait"
+        - "--for=condition=Ready"
+        - "pods"
+        - "--all"
+        -  "-l"
+        - "name=shipping"
+        - "-n"
+        - "$(params.NAMESPACE)"

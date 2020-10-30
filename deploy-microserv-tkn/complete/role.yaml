@@ -18,5 +18,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: bashayr-docker-hub
-    namespace: sock-shop
 

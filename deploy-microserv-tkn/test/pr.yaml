@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: test-pipelinerun
+spec:
+  serviceAccountName: bashayr-docker-hub
+  pipelineRef:
+    name: test-pipeline
+  resources:
+    - name: test-resource
+      resourceRef:
+        name: test-resource 

@@ -3,12 +3,161 @@ kind: Pipeline
 metadata:
   name: shipping-pipeline
 spec:
-  workspaces:
-    - name: output
+  resources: 
+    - name: shipping-resource
+      type: git
+    - name: user-resource
+      type: git
+    - name: test-resource
+      type: git
   tasks:
-    - name: shipping-pipe
-      taskRef:               # will start execution immediately
+    - name: dockr-shipping-pip
+      taskRef:               # task 1
+        name: dockr-shipping
+      params:
+      - name: IMAGE
+        value: "bashayr/shipping"
+      resources:
+        inputs:
+        - name: shipping-resource
+          resource: shipping-resource
+    - name: shipping-pipe #task 2
+      taskRef:               
         name: shipping-dep-task
-      workspaces:
-        - name: output
-          workspace: output
+      runAfter:
+        - dockr-shipping-pip
+      params:
+      - name: NAMESPACE
+        value: "test"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#----------------------wait----------------------------
+    - name: waiting-shipping-pipe  # task 4: waiting task
+      taskRef:            
+        name: waiting-shipping-task 
+      runAfter:
+        - shipping-pipe
+      params:
+      - name: NAMESPACE
+        value: "test"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#----------------------test----------------------------
+    - name: test-pipe  # task 5: test task
+      taskRef:
+        name: test-task
+      runAfter:
+        - waiting-shipping-pipe
+      resources:
+        inputs:
+        - name: test-resource
+          resource: test-resource
+#-----------------------prod---------------------------
+    - name: shipping-prod-pipe     # task 3: deploy shipping service
+      taskRef:
+        name: shipping-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-catalogue---------------------------
+    - name: catalogue-prod-pipe     
+      taskRef:
+        name: catalogue-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-carts--------------------------
+    - name: prod-carts-pipe     
+      taskRef:               
+        name: carts-dep-task
+      runAfter:
+        - test-pipe 
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-front-end--------------------------
+    - name: front-pipe-prod    
+      taskRef:               
+        name: front-end-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-orders--------------------------
+    - name: ordes-prod-pipe     
+      taskRef:
+        name: orders-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-payment--------------------------
+    - name: payment-prod-pipe     # task 3: deploy payment service
+      taskRef:
+        name: payment-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod-queue-master--------------------------
+    - name: queue-master-prod-pipe     
+      taskRef:
+        name: queue-master-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+
+#-----------------------prod-user--------------------------
+    - name: user-pipe-prod     
+      taskRef:               
+        name: user-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource

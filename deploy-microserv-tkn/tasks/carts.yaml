@@ -4,27 +4,25 @@ metadata:
   name: carts-dep-task
   serviceAccountName: bashayr-docker-hub
 spec:
-  workspaces:
-    - name: output
+  params:
+  - name: NAMESPACE
+  resources:
+    inputs:
+    - name: user-resource
+      type: git
   steps: 
-    - name: try 
-      image: ubuntu  # contains bash
-      script: |
-        #!/usr/bin/env bash
-        pwd
-        ls -gAhF
-        echo "--------"
-        ls -gAhF output/
     - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "output/deploy-microserv-tkn/services/carts-db-svc.yml" 
+        - "user-resource/deploy-microserv-tkn/services/carts-db-svc.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/carts-db-dep.yaml"
+        - "user-resource/deploy-microserv-tkn/services/carts-db-dep.yaml"
         - "-f"
-        - "output/deploy-microserv-tkn/services/carts-svc.yaml" 
+        - "user-resource/deploy-microserv-tkn/services/carts-svc.yml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/carts-dep.yaml"
+        - "user-resource/deploy-microserv-tkn/services/carts-dep.yaml"
+        - "-n"
+        - "$(params.NAMESPACE)"

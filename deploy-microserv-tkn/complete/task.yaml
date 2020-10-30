@@ -2,11 +2,12 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: dep-task
-  namespace: sock-shop
   serviceAccountName: bashayr-docker-hub
 spec:
-  workspaces:
-    - name: output
+  resources:
+    inputs:
+      - name: main
+        type: git
   steps: 
     - name: try 
       image: ubuntu  # contains bash
@@ -15,11 +16,11 @@ spec:
         pwd
         ls -gAhF
         echo "--------"
-        ls -gAhF output/
+        ls -gAhF ../      
     - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "output/deploy-microserv-tkn/complete/complete.yaml" 
+        - "main/deploy-microserv-tkn/complete/complete.yaml" 

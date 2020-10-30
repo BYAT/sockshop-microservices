@@ -4,27 +4,31 @@ metadata:
   name: user-dep-task
   serviceAccountName: bashayr-docker-hub
 spec:
-  workspaces:
-    - name: output
+  params:
+  - name: NAMESPACE
+  resources:
+    inputs:
+    - name: user-resource
+      type: git
   steps: 
     - name: try 
       image: ubuntu  # contains bash
       script: |
         #!/usr/bin/env bash
         pwd
-        ls -gAhF
         echo "--------"
-        ls -gAhF output/
-    - name: run-kubectl
+    - name: run-user-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "output/deploy-microserv-tkn/services/user-db-svc.yaml"
+        - "user-resource/deploy-microserv-tkn/services/user-db-svc.yaml"
         - "-f"
-        - "output/deploy-microserv-tkn/services/user-db-dep.yaml"
+        - "user-resource/deploy-microserv-tkn/services/user-db-dep.yaml"
         - "-f"
-        - "output/deploy-microserv-tkn/services/user-svc.yaml" 
+        - "user-resource/deploy-microserv-tkn/services/user-svc.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/user-dep.yaml"
+        - "user-resource/deploy-microserv-tkn/services/user-dep.yaml"
+        - "-n"
+        - "$(params.NAMESPACE)"

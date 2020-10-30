@@ -1,6 +1,6 @@
 .PHONY: up down init cluster-up install uninstall logs repos namespaces cluster-down clean provision
 
-up: cluster-up init install-cicd platform
+up: cluster-up init install-cicd install-ingress microservice 
 
 down: cluster-down
 
@@ -152,3 +152,25 @@ delete-logging:
 	helm delete fluent-bit -n logging | tee -a output.log 2>/dev/null | true
 	echo "Logging: delete-elasticsearch" | tee -a output.log
 	helm delete kibana elastic/kibana -n logging | tee -a output.log 2>/dev/null | true
+monitoring:
+	kubectl apply -f ./monitoring/monitoring-ns.yaml -f ./monitoring/prometheus-sa.yml -f ./monitoring/prometheus-cr.yml -f ./monitoring/prometheus-crb.yml -f ./monitoring/prometheus-configmap.yaml -f ./monitoring/prometheus-dep.yaml -f ./monitoring/prometheus-svc.yaml -f ./monitoring/prometheus-exporter-disk-usage-ds.yaml -f ./monitoring/prometheus-exporter-kube-state-dep.yaml -f ./monitoring/prometheus-exporter-kube-state-svc.yaml -f ./monitoring/grafana-dep.yaml -f ./monitoring/grafana-configmap.yaml -f ./monitoring/grafana-svc.yaml -f ./monitoring/grafana-import-dash-batch.yaml -f ./monitoring/prometheus-alertrules.yaml
+delete-monitoring:
+	kubectl delete -f ./monitoring/monitoring-ns.yaml -f ./monitoring/prometheus-sa.yml -f ./monitoring/prometheus-cr.yml -f ./monitoring/prometheus-crb.yml -f ./monitoring/prometheus-configmap.yaml -f ./monitoring/prometheus-dep.yaml -f ./monitoring/prometheus-svc.yaml -f ./monitoring/prometheus-exporter-disk-usage-ds.yaml -f ./monitoring/prometheus-exporter-kube-state-dep.yaml -f ./monitoring/prometheus-exporter-kube-state-svc.yaml -f ./monitoring/grafana-dep.yaml -f ./monitoring/grafana-configmap.yaml -f ./monitoring/grafana-svc.yaml -f ./monitoring/grafana-import-dash-batch.yaml -f ./monitoring/prometheus-alertrules.yaml
+
+microservice:
+	cd deploy-microserv-tkn && make apply-all-with-docker && cd ../monitoring/graf && bash pro-graf.sh && cd ../elf/ && bash elf.sh
+
+vault:
+		docker network create vault-network 
+	docker container run --name vault \
+		-it -d \
+		--network vault-network \
+		--cap-add=IPC_LOCK \
+		-e VAULT_DEV_ROOT_TOKEN_ID=project3 \
+		-e VAULT_ADDR=http://localhost:30200 \
+		-e VAULT_TOKEN=projecte \
+		-e VAULT_FORMAT=json \
+		-w /work \
+		-v $$(pwd):/work \
+		-p 30200:30200 \
+		vault && vault login project3 && export VAULT_ADDR=http://localhost:30200/

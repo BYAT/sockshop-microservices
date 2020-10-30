@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1 
+kind: Pipeline
+metadata:
+  name: test-pipeline
+spec:
+  resources: 
+    - name: test-resource
+      type: git
+  tasks:
+    - name: test-pipe
+      taskRef:               # will start execution immediately
+        name: test-task
+      resources:
+        inputs:
+        - name: test-resource
+          resource: test-resource

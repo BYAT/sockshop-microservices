@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: test-task
+  serviceAccountName: bashayr-docker-hub
+spec:
+  resources:
+    inputs:
+    - name: test-resource
+      type: git
+  steps: 
+    - name: test-path
+      image: ubuntu  # contains bash
+      workingDir: /workspace/test-resource/deploy-microserv-tkn/test/e2e-js-test
+      script: |
+        #!/usr/bin/env bash
+        pwd
+        echo "-------------ls  -gAhF----------------------------------------------------"
+        ls  -gAhF
+        echo "-------------ls -gAhF test-resource/deploy-microserv-tkn/test/e2e-js-test/---------------"
+        ls -gAhF test-resource/deploy-microserv-tkn/test/e2e-js-test
+        cd test-resource/deploy-microserv-tkn/
+        echo "-------------pwd"
+        pwd
+        echo "hi" 
+    - name: run-docker-test
+      image: bashayr/e2e-try:v1
+      workingDir: /workspace/test-resource/deploy-microserv-tkn/test/e2e-js-test
+      command: ["casperjs"]
+      args:
+        - "test"
+        - "homepage_test.js" 
+        - "login_test.js"
+        - "catalogue_test.js"
+        - "cart_test.js"
+        - "checkout_test.js"

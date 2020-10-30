@@ -1,0 +1,136 @@
+apiVersion: tekton.dev/v1beta1 
+kind: Pipeline
+metadata:
+  name: test-prod-pipeline
+spec:
+  resources: 
+    - name: user-resource
+      type: git
+    - name: test-resource
+      type: git
+  tasks:
+#----------------------wait----------------------------
+    - name: waiting-pipe  # task 4: waiting task
+      taskRef:            
+        name: waiting-task 
+      params:
+      - name: NAMESPACE
+        value: "test"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#----------------------test----------------------------
+    - name: test-pipe  # task 5: test task
+      taskRef:
+        name: test-task
+      runAfter:
+        - waiting-pipe
+      resources:
+        inputs:
+        - name: test-resource
+          resource: test-resource
+#-----------------------prod-catalogue---------------------------
+    - name: catalogue-prod-pipe     # task 3: deploy catalogue service
+      taskRef:
+        name: catalogue-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod---------------------------
+    - name: prod-carts-pipe     # Task 5
+      taskRef:               
+        name: carts-dep-task
+      runAfter:
+        - test-pipe 
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod---------------------------
+    - name: front-pipe-prod     # Task 5
+      taskRef:               
+        name: front-end-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod---------------------------
+    - name: ordes-prod-pipe     # task 3: deploy catalogue service
+      taskRef:
+        name: orders-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod---------------------------
+    - name: payment-prod-pipe     # task 3: deploy payment service
+      taskRef:
+        name: payment-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod---------------------------
+    - name: queue-master-prod-pipe     # task 5: deploy queue-master service
+      taskRef:
+        name: queue-master-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod---------------------------
+    - name: shipping-prod-pipe     # task 3: deploy shipping service
+      taskRef:
+        name: shipping-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource
+#-----------------------prod---------------------------
+    - name: user-pipe-prod     # Task 5
+      taskRef:               
+        name: user-dep-task
+      runAfter:
+        - test-pipe
+      params:
+      - name: NAMESPACE
+        value: "prod"
+      resources:
+        inputs:
+        - name: user-resource
+          resource: user-resource

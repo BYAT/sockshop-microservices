@@ -4,27 +4,25 @@ metadata:
   name: queue-master-dep-task
   serviceAccountName: bashayr-docker-hub
 spec:
-  workspaces:
-    - name: output
+  params:
+  - name: NAMESPACE
+  resources:
+    inputs:
+    - name: user-resource
+      type: git
   steps: 
-    - name: try 
-      image: ubuntu  # contains bash
-      script: |
-        #!/usr/bin/env bash
-        pwd
-        ls -gAhF
-        echo "--------"
-        ls -gAhF output/
-    - name: run-kubectl
+    - name: run-qm-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "output/deploy-microserv-tkn/services/rabbitmq-svc.yaml" 
+        - "user-resource/deploy-microserv-tkn/services/rabbitmq-svc.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/rabbitmq-dep.yaml" 
+        - "user-resource/deploy-microserv-tkn/services/rabbitmq-dep.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/queue-master-svc.yaml" 
+        - "user-resource/deploy-microserv-tkn/services/queue-master-svc.yaml" 
         - "-f"
-        - "output/deploy-microserv-tkn/services/queue-master-dep.yaml"
+        - "user-resource/deploy-microserv-tkn/services/queue-master-dep.yaml"
+        - "-n"
+        - "$(params.NAMESPACE)"
