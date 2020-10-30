@@ -160,6 +160,10 @@ delete-monitoring:
 microservice:
 	cd deploy-microserv-tkn && make apply-all-with-docker && cd ../monitoring/graf && bash pro-graf.sh && cd ../elf/ && bash elf.sh
 
+list:
+	tkn pr list -n test
+track:
+	tkn pr logs -f -n test
 vault:
 		docker network create vault-network 
 	docker container run --name vault \
