@@ -29,8 +29,8 @@ spec:
       command: ["casperjs"]
       args:
         - "test"
-        - "cart_test.js"
-        - "catalogue_test.js"
-        - "checkout_test.js"
         - "homepage_test.js" 
         - "login_test.js"
+        - "catalogue_test.js"
+        - "cart_test.js"
+        - "checkout_test.js"

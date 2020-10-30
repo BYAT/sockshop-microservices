@@ -45,7 +45,7 @@ shipping-with-docker:
 delete-shipping-with-docker:
 	kubectl delete -f ./build-images-tkn/task-shipping.yaml -f  tasks/shipping.yaml -f pipelines/shipping.yaml -f pr/shipping.yaml  -n test
 queue-master-with-docker:
-	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role-test.yaml -f workspace.yaml -f resources/resource-queue-master.yaml  -f resources/resource-user.yaml -f ./build-images-tkn/task-queue-master.yaml -f  tasks/queue-master.yaml -f tasks/front-end-task.yaml -f tasks/carts.yaml -f tasks/catalogue.yaml -f tasks/orders.yaml -f tasks/user.yaml -f  tasks/payment.yaml -f  tasks/shipping.yaml -f tasks/queue-master.yaml -f tasks/waiting/queue-master-waiting.yaml -f pipelines/queue-master.yaml -f pr/queue-master.yaml  -n test
+	kubectl apply  -f resources/github-secrets.yaml -f ./secret.yaml -f ./sa.yaml -f role-test.yaml -f workspace.yaml -f resources/resource-queue-master.yaml  -f resources/resource-user.yaml -f resources/resource-test.yaml -f ./build-images-tkn/task-queue-master.yaml -f  tasks/queue-master.yaml -f tasks/front-end-task.yaml -f tasks/carts.yaml -f tasks/catalogue.yaml -f tasks/orders.yaml -f tasks/user.yaml -f  tasks/payment.yaml -f  tasks/shipping.yaml -f tasks/queue-master.yaml -f tasks/waiting/queue-master-waiting.yaml -f pipelines/queue-master.yaml -f pr/queue-master.yaml  -n test
 delete-queue-master-with-docker:
 	kubectl delete -f ./build-images-tkn/task-queue-master.yaml -f  tasks/queue-master.yaml -f pipelines/queue-master.yaml -f pr/queue-master.yaml  -n test
 get:

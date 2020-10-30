@@ -165,16 +165,22 @@ Day 13:
   - test 2nd attempt
 
     i.  fix test js file 
-    ii. rebuild docker image (e2e-js-test) and push it locally(without using tekton task)
+    ii. rebuild docker image (e2e-js-test)
     iii.microservices test passed successfully 
 
 Day 14:
 
   - 2nd attempt of passing services from one namespace to another
-    i.  successfully fix Forbidden issue (making tasks work on defual and services on namespaces)
+    i.  successfully fix Forbidden issue (making tasks work on test and services on namespaces)
     ii. successfully passing front-end task from one namespace to another (from test to prod)
 
   - Start working on monitoring dirctory (it works but there is no actual data)
 
 Day 15:
-  - 
+  - change the approach that I followed 
+    i.  delete waiting all services to be up and running and then run the test only once
+    ii. check the current service state then run the test
+    iii.release all services to prod env whenever the test is passed
+
+Day 16:
+    - working on monitoring staff with actual data

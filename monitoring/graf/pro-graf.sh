@@ -1,6 +1,6 @@
 #!/bin/bash
-helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm repo add stable1 https://kubernetes-charts.storage.googleapis.com
 helm repo update
-kubectl create namespace monitor
-helm install prometheus-operator stable/prometheus-operator --namespace monitor --set grafana.service.type=LoadBalancer --values toleration.yaml
-kubectl apply -f ingress.yaml -n monitor
+helm install prometheus-operator stable1/prometheus-operator --namespace monitor --set grafana.service.type=LoadBalancer
+kubectl get svc -n monitor | grep prometheus-operator-grafana
+
