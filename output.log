@@ -148,3 +148,37 @@ Your release is named vault. To learn more about the release, try:
 
   $ helm status vault
   $ helm get manifest vault
+Monitoring: delete-prometheus
+Monitoring: delete-grafana
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Monitoring: delete-prometheus
+Monitoring: delete-grafana
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Monitoring: delete-prometheus
+Monitoring: delete-grafana
+Monitoring: delete-prometheus
+Monitoring: delete-grafana
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Monitoring: delete-prometheus
+Monitoring: delete-grafana
+Monitoring: delete-prometheus
+Monitoring: delete-grafana
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Logging: delete-elasticsearch
+Monitoring: delete-prometheus
+Monitoring: delete-grafana
+Monitoring: delete-prometheus
+Monitoring: delete-grafana

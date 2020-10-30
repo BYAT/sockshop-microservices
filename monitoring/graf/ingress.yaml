@@ -2,14 +2,14 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: cluster
-  namespace: monitoring
+  namespace: monitor
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
   - http:
       paths:
-      - path: /elf
+      - path: /grafana
         backend:
-          serviceName: kibana-kibana
+          serviceName: prometheus-operator-grafana
           servicePort: 80
