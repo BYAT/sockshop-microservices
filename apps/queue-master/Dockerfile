@@ -29,7 +29,7 @@ RUN     addgroup -g ${SERVICE_GID} ${SERVICE_GROUP} && \
         setcap 'cap_net_bind_service=+ep' $(readlink -f $(which java))
 
 
-RUN     chown -R ${SERVICE_USER}:${SERVICE_GROUP} ./queue-master.jar
+RUN     chmod a+rw ./queue-master.jar
 
 USER ${SERVICE_USER}
 
