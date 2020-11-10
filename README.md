@@ -38,8 +38,11 @@ whenever you get the pipeline status as succeeded that means all microservices d
   This consists of project diary and screenshots of kanban board. 
 - #####  monitoring
   This directory for monitoring and logging. The monitoring is performed by prometheus and all services expose a /metrics and all logging is performed by elasticsearch 
-- #####  platform
-  This directory for 
+## Project Structure  
+  I drow this digram to simplify the project structure
+
+![image](https://user-images.githubusercontent.com/44238363/98681723-1e82d000-2374-11eb-8252-bad5d3f60b75.png)
+
 ## Screenshot:
 - Pipelinerun logs 
 
